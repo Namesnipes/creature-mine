@@ -40,3 +40,4 @@ app.ticker.add((delta) => {
     clampy.angle += chomping_down ? 0.5 * delta : -0.5 * delta;
     clampy2.angle += chomping_down ? -0.5 * delta : 0.5 * delta;
 });
+//test
