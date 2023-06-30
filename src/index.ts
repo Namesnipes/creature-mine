@@ -1,4 +1,4 @@
-import { Application, Sprite, Container, Color } from 'pixi.js'
+import { Application, Sprite, Container, Color, Graphics, TextStyle, Text} from 'pixi.js'
 
 const app = new Application({
     view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -52,4 +52,34 @@ app.ticker.add((delta) => {
     if(hsl_color >= 255) hsl_color = 0
     clampy3.tint = new Color('hsl(' + (rainbow_switch ? hsl_color += 2 : hsl_color -= 2) + ', 100%, 80%, 50%)')
 });
-//test
+
+
+// dont clear() and redrew 
+// dont use coordinate arguments in drawShape(x, y, 25) to set position. draw then do shape.x = num
+
+const graphy: Graphics = new Graphics();
+
+// we give instructions in order. begin fill, line style, draw circle, end filling
+graphy.beginFill(0xFFFF0F);
+graphy.lineStyle(10, 0xFFFFF0);
+graphy.drawCircle(0, 0, 25); // See how I set the drawing at 0,0? NOT AT 100, 100!
+graphy.endFill();
+
+app.stage.addChild(graphy); //I can add it before setting position, nothing bad will happen.
+
+// Here we set it at 100,100
+graphy.x = 400;
+graphy.y = 400;
+
+
+
+const styly: TextStyle = new TextStyle({
+    align: "justify",
+    fill: "#754c24",
+    fontSize: 42
+});
+const texty: Text = new Text('私に気づいて先輩！', styly); // Text supports unicode!
+texty.x = 150
+
+app.stage.addChild(texty);
+
