@@ -1,9 +1,9 @@
-import { Application, Sprite, Container } from 'pixi.js'
+import { Application, Sprite, Container, Color } from 'pixi.js'
 
 const app = new Application({
     view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
     resolution: window.devicePixelRatio || 1,
-  autoDensity: true,
+    autoDensity: true,
     backgroundColor: 0x6495ed,
     width: 640,
     height: 480
@@ -28,7 +28,16 @@ clampy2.angle = 0
 clampy2.anchor.set(0,0);
 conty.addChild(clampy2);
 
+const clampy3: Sprite = Sprite.from(CAT_URL);
+clampy3.x = app.screen.width / 2;
+clampy3.y = app.screen.height / 2;
+clampy3.anchor.set(0,1);
+conty.addChild(clampy3);
+
+
 let chomping_down: boolean = false
+let rainbow_switch: boolean = false
+let hsl_color: number = 0
 
 app.ticker.add((delta) => {
     if(clampy2.angle >= 45){
@@ -37,7 +46,10 @@ app.ticker.add((delta) => {
         chomping_down = false
     }
 
-    clampy.angle += chomping_down ? 0.5 * delta : -0.5 * delta;
-    clampy2.angle += chomping_down ? -0.5 * delta : 0.5 * delta;
+    clampy.angle += chomping_down ? 2.5 * delta : -2.5 * delta;
+    clampy2.angle += chomping_down ? -2.5 * delta : 2.5 * delta;
+
+    if(hsl_color >= 255) hsl_color = 0
+    clampy3.tint = new Color('hsl(' + (rainbow_switch ? hsl_color += 2 : hsl_color -= 2) + ', 100%, 80%, 50%)')
 });
 //test
