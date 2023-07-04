@@ -1,5 +1,5 @@
-import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture} from 'pixi.js'
-
+import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js'
+import { Keyboard } from "../Keyboard"
 
 export class Scene extends Container {
     private readonly screenWidth: number;
@@ -117,12 +117,64 @@ export class Scene extends Container {
             const texture = Texture.from(clampyImages[i]);
             textureArray.push(texture);
         }
-        
+
         const animatedSprite = new AnimatedSprite(textureArray);
         this.addChild(animatedSprite)
         animatedSprite.animationSpeed = 0.25
         animatedSprite.play()
-    }
 
+
+
+        
+        const buttonTextures = [
+            "button_up.png",
+            "button_down.png",
+            "button_up.png"
+        ]
+
+        const textureArray2 = [];
+        
+        for (let i = 0; i < buttonTextures.length; i++)
+        {
+            const texture = Texture.from(buttonTextures[i]);
+            textureArray2.push(texture);
+        }
+
+        const button = new AnimatedSprite(textureArray2);
+        button.x = this.screenWidth / 2;
+        button.y = this.screenHeight / 2;
+        this.addChild(button)
+        button.animationSpeed = 0.05
+        button.loop = true
+        button.on("pointertap", this.onClicky, this);
+        button.interactive = true
+
+        Keyboard.initialize()
+        Ticker.shared.add((delta) => {
+            if(Keyboard.state.get("KeyW")){
+                button.y = button.y - 5 * delta
+            }
+            if(Keyboard.state.get("KeyA")){
+                button.x = button.x - 5 * delta
+            }
+            if(Keyboard.state.get("KeyS")){
+                button.y = button.y + 5 * delta
+            }
+            if(Keyboard.state.get("KeyD")){
+                button.x = button.x + 5 * delta
+            }
+        })
+    }
+    private onClicky(e: FederatedPointerEvent): void {
+        let targ = e.target
+        if(targ){
+            (targ as AnimatedSprite).play()
+            setTimeout(function() {
+                if(targ){
+                (targ as AnimatedSprite).stop()
+                }
+            }, 1000)
+        }
+    }
 
 }
