@@ -1,17 +1,18 @@
 import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js'
 import { Keyboard } from "../Keyboard"
+import { IScene, Manager } from "../Manager";
 
-export class Scene extends Container {
+export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
     private readonly screenHeight: number;
 
     // We promoted clampy to a member of the class
-    constructor(screenWidth: number, screenHeight: number) {
+    constructor() {
         super(); // Mandatory! This calls the superclass constructor.
 
         // see how members of the class need `this.`?
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+        this.screenWidth = Manager.width;
+        this.screenHeight = Manager.height;
 
         const CAT_URL: string = "gabe.jpg"
         const conty: Container = new Container();
@@ -144,8 +145,8 @@ export class Scene extends Container {
         button.x = this.screenWidth / 2;
         button.y = this.screenHeight / 2;
         this.addChild(button)
-        button.animationSpeed = 0.05
-        button.loop = true
+        button.animationSpeed = 0.1
+        button.loop = false
         button.on("pointertap", this.onClicky, this);
         button.interactive = true
 
@@ -165,15 +166,15 @@ export class Scene extends Container {
             }
         })
     }
+    update(_framesPassed: number): void {
+    }
+
     private onClicky(e: FederatedPointerEvent): void {
         let targ = e.target
         if(targ){
+            (targ as AnimatedSprite).currentFrame = 0;
             (targ as AnimatedSprite).play()
-            setTimeout(function() {
-                if(targ){
-                (targ as AnimatedSprite).stop()
-                }
-            }, 1000)
+
         }
     }
 
