@@ -2,7 +2,7 @@ import { Actor } from './Actor';
 import { Scene } from './scenes/Scene1';
 
 export class Component{
-    private mOwner: Actor;
+    protected mOwner: Actor;
 
     constructor(owner: Actor) {
         this.mOwner = owner;

@@ -1,4 +1,4 @@
-import { Container, Ticker, Texture} from 'pixi.js';
+import { Container, Ticker, Texture, Sprite} from 'pixi.js';
 import { IScene, Manager } from "../Manager";
 import { Actor } from '../Actor';
 import { CookieActor } from '../CookieActor';
