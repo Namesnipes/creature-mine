@@ -1,5 +1,5 @@
-import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js'
-import { Keyboard } from "../Keyboard"
+import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js';
+import { Keyboard } from "../Keyboard";
 import { IScene, Manager } from "../Manager";
 
 export class Scene extends Container implements IScene {
