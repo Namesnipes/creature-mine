@@ -16,5 +16,4 @@ export class CookieActor extends Actor {
         console.log(this.mClicker.mClickNum);
         return this.mClicker.mClickNum;
     }
-
 }
