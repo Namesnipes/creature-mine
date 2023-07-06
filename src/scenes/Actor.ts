@@ -1,5 +1,6 @@
-import {ObservablePoint, Point, Sprite} from 'pixi.js';
-import { Scene } from './Scene';
+import {ObservablePoint, Point, Sprite, Texture} from 'pixi.js';
+import { Scene } from './Scene1';
+import {Component} from '../Component';
 
 enum ActorState{
     Active,
@@ -10,14 +11,15 @@ export class Actor extends Sprite {
     mScene: Scene;
     mState: ActorState;
     //component array
-    //mComponents: Array<>;
+    mComponents: Array<Component>;
 
     constructor(thisScene: Scene) {
         super();
-        mState: ActorState.Active;
-        mScene: thisScene;
+        this.mState = ActorState.Active;
+        this.mScene= thisScene;
         //TODO: add actor to scene's actor vector
-        //TODO: set actor position to zero
+        this.mScene.AddActor(this);
+
 
     }
 
@@ -42,24 +44,56 @@ export class Actor extends Sprite {
     public GetScene(): Scene {
         return this.mScene;
     }
-    public GetForward(): Point{
-        //x is cosine of the rotation angle
-        //y is sine of rotation angle (must then negate due to coordinate system)
-        retVal: Point=
-            new Point(Math.cos(this.rotation), (-1 * (Math.sin(this.rotation))));
-        //normalize to be unit vector
-        //retVal.Normalize();
-        retVal.normalize();
-
-        return retVal;
+    //set texture
+    public SetTexture(texture: Texture){
+        this.texture = texture;
     }
-    //TODO: get forward direction
-    //TODO: get componenet
-    //TODO: update function updates actor's components
-    //TODO: on update function updates actor each frame
-    //TODO: calls process input on each component
-    //TODO: on process input updates actor based on input
-    //TODO: add component
+    // public GetForward(): Point{
+    //     //x is cosine of the rotation angle
+    //     //y is sine of rotation angle (must then negate due to coordinate system)
+    //     let retVal: Point=
+    //         new Point(Math.cos(this.rotation), (-1 * (Math.sin(this.rotation))));
+    //     //normalize to be unit vector
+
+    //     retVal.normalize();
+
+    //     return retVal;
+    // }
+
+    
+    public GetComponent(): any{
+
+    }
+    //update function updates actor's components
+    public Update(delta: number){
+        if(this.mState == ActorState.Active){
+            this.mComponents.forEach(function(c){
+                c.Update(delta);
+            });
+            this.OnUpdate(delta);
+        }
+    }
+    //update actor
+    private OnUpdate(delta: number){
+
+    }
+    //calls process input on each component
+    public ProcessInput(){
+        if(this.mState == ActorState.Active){
+            this.mComponents.forEach(function(c){
+                c.ProcessInput();
+            });
+            this.OnProcessInput();
+        }
+    }
+    //on process input updates actor based on input
+    private OnProcessInput(){
+
+    }
+
+    public AddComponent(comp: Component){
+        this.mComponents.push(comp);
+    }
 
 
 

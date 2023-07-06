@@ -1,6 +1,7 @@
-import { Actor } from './Actor';
+import { Actor } from './scenes/Actor';
+import { Scene } from './scenes/Scene';
 
-class Component{
+export class Component{
     private mOwner: Actor;
     private mUpdateOrder: number;
 
@@ -10,13 +11,13 @@ class Component{
         this.mOwner.AddComponent(this);
     }
     
-    public Update(deltaTime: number): void {
+    public Update(delta: number): void {
     }
     
-    public ProcessInput(keyState: Uint8Array): void {
+    public ProcessInput(): void {
     }
     
-    public GetScene(): Game {
+    public GetScene(): Scene {
         return this.mOwner.GetScene();
     }
     
