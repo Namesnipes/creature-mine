@@ -5,7 +5,8 @@ import { Point } from 'pixi.js';
 export class ClickComponent extends Component{
     mClicked: boolean = false;
     mIsShrinking: boolean = true;
-    mClickScale: number = 0.01;
+    mClickScale: number = 0.05;
+    public mClickNum: number = 0;
     constructor(owner: Actor) {
         super(owner);
         this.mOwner = owner
@@ -16,6 +17,7 @@ export class ClickComponent extends Component{
     public onClick():void{
         if(!this.mClicked){
             this.mClicked = true;
+            this.mClickNum++;
         }
     }
     public override Update(delta: number): void {
