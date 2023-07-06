@@ -1,6 +1,7 @@
 import { Container, Ticker, Texture} from 'pixi.js';
 import { IScene, Manager } from "../Manager";
-import { Actor } from './Actor';
+import { Actor } from '../Actor';
+import { CookieActor } from '../CookieActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -15,7 +16,8 @@ export class Scene extends Container implements IScene {
         this.screenWidth = Manager.width;
         this.screenHeight = Manager.height;
 
-        let cookie: Actor = new Actor(this);
+        let cookie: Actor = new CookieActor(this);
+        cookie.anchor.set(0.5)
         cookie.x = this.screenWidth/2.0;
         cookie.y = this.screenHeight/2.0;
         cookie.SetTexture(Texture.from('cookie.png'));
