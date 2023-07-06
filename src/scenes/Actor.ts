@@ -1,4 +1,4 @@
-import {ObservablePoint, Sprite} from 'pixi.js';
+import {ObservablePoint, Point, Sprite} from 'pixi.js';
 import { Scene } from './Scene';
 
 enum ActorState{
@@ -33,8 +33,26 @@ export class Actor extends Sprite {
     public SetRotation(rot: number): void{
         this.rotation = rot;
     }
-    //TODO: get/set state
-    //TODO: get scene
+    public GetState(): ActorState {
+        return this.mState;
+    }
+    public SetState(state: ActorState): void{
+        this.mState = state;
+    }
+    public GetScene(): Scene {
+        return this.mScene;
+    }
+    public GetForward(): Point{
+        //x is cosine of the rotation angle
+        //y is sine of rotation angle (must then negate due to coordinate system)
+        retVal: Point=
+            new Point(Math.cos(this.rotation), (-1 * (Math.sin(this.rotation))));
+        //normalize to be unit vector
+        //retVal.Normalize();
+        retVal.normalize();
+
+        return retVal;
+    }
     //TODO: get forward direction
     //TODO: get componenet
     //TODO: update function updates actor's components
