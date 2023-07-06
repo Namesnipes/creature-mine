@@ -10,7 +10,7 @@ export class Component{
     }
     
     public Update(delta: number): void {
-        console.log("component log, delta: " + delta);
+        console.log(delta)
     }
     
     public ProcessInput(): void {

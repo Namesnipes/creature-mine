@@ -75,7 +75,6 @@ export class Actor extends Sprite {
     }
     //update actor
     private OnUpdate(delta: number){
-        console.log("actor log, delta: " + delta);
     }
     //calls process input on each component
     public ProcessInput(){
@@ -87,7 +86,7 @@ export class Actor extends Sprite {
         }
     }
     //on process input updates actor based on input
-    private OnProcessInput(){
+    public OnProcessInput(){
 
     }
 

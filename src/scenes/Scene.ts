@@ -1,5 +1,5 @@
 import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js';
-import { Keyboard } from "../Keyboard";
+import { UserInput } from "../UserInput";
 import { IScene, Manager } from "../Manager";
 
 export class Scene extends Container implements IScene {
@@ -150,21 +150,21 @@ export class Scene extends Container implements IScene {
         button.on("pointertap", this.onClicky, this);
         button.interactive = true
 
-        Keyboard.initialize()
+        UserInput.initialize()
         Ticker.shared.add((delta) => {
-            if(Keyboard.state.get("KeyW")){
+            if(UserInput.state.get("KeyW")){
                 button.y = button.y - 5 * delta
             }
-            if(Keyboard.state.get("KeyA")){
+            if(UserInput.state.get("KeyA")){
                 button.x = button.x - 5 * delta
             }
-            if(Keyboard.state.get("KeyS")){
+            if(UserInput.state.get("KeyS")){
                 button.y = button.y + 5 * delta
             }
-            if(Keyboard.state.get("KeyD")){
+            if(UserInput.state.get("KeyD")){
                 button.x = button.x + 5 * delta
             }
-        })
+        })//
     }
     update(_framesPassed: number): void {
     }

@@ -2,6 +2,7 @@ import { Container, Ticker, Texture} from 'pixi.js';
 import { IScene, Manager } from "../Manager";
 import { Actor } from '../Actor';
 import { CookieActor } from '../CookieActor';
+import { UserInput } from "../UserInput";
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -35,7 +36,7 @@ export class Scene extends Container implements IScene {
         });
     }
     //update input on all actors
-    private Update(){
+    private UpdateActors(){
         //TODO:make a copy of mactors and go thru that instead
         this.mActors.forEach(function(child){
             child.Update(Ticker.shared.deltaMS);
@@ -44,6 +45,6 @@ export class Scene extends Container implements IScene {
     //update
     update(_framesPassed: number): void {
         this.ProcessInput();
-        this.Update();
+        this.UpdateActors();
     }
 }

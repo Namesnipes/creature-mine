@@ -1,4 +1,5 @@
 import { Application, DisplayObject } from "pixi.js";
+import { UserInput } from "./UserInput";
 
 export class Manager {
     private constructor() { /*this class is purely static. No constructor to see here*/ }
@@ -45,6 +46,8 @@ export class Manager {
 
         // call it manually once so we are sure we are the correct size after starting
         Manager.resize();
+
+        UserInput.initialize()
     }
 
     public static resize(): void {
