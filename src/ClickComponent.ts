@@ -1,6 +1,6 @@
 import { Actor } from "./Actor";
 import { Component } from "./Component";
-import { Point, ParticleContainer, Texture, FederatedMouseEvent } from 'pixi.js';
+import { Point, ParticleContainer, Texture, FederatedMouseEvent, Container } from 'pixi.js';
 import * as particleSettings from "./cookemit.json";
 import * as particles from '@pixi/particle-emitter';
 import { Manager } from "./Manager";
@@ -19,7 +19,7 @@ export class ClickComponent extends Component{
 
     public onClick(e: FederatedMouseEvent):void{
         if(!this.mClicked){
-            const particleContainer = new ParticleContainer();
+            const particleContainer = new Container();
             this.mOwner.addChild(particleContainer);
 
             const emitter = new particles.Emitter(particleContainer,particleSettings);
@@ -29,6 +29,7 @@ export class ClickComponent extends Component{
             setTimeout(function(){
                 emitter.emit = false
             },500);
+            
             this.mClicked = true;
             this.mClickNum++;
         }
