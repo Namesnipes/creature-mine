@@ -39,9 +39,14 @@ export class Manager {
 
         // Add the ticker
         Manager.app.ticker.add(Manager.update)
+        
+        // listen for the browser telling us that the screen size changed
+        window.addEventListener("resize", Manager.resize);
+
+        // call it manually once so we are sure we are the correct size after starting
+        Manager.resize();
     }
 
-    /*
     public static resize(): void {
         // current screen size
         const screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -55,19 +60,19 @@ export class Manager {
         const enlargedHeight = Math.floor(scale * Manager.height);
 
         // margins for centering our game
-        //const horizontalMargin = (screenWidth - enlargedWidth) / 2;
-        //const verticalMargin = (screenHeight - enlargedHeight) / 2;
+        const horizontalMargin = (screenWidth - enlargedWidth) / 2;
+        const verticalMargin = (screenHeight - enlargedHeight) / 2;
 
         // now we use css trickery to set the sizes and margins
+        console.log(horizontalMargin,verticalMargin)
         if(Manager.app.view.style){
-            console.log(Manager.app.view.style)
             Manager.app.view.style.width = `${enlargedWidth}px`;
             Manager.app.view.style.height = `${enlargedHeight}px`;
-            //Manager.app.view.style.marginLeft = Manager.app.view.style["margin-right"] = `${horizontalMargin}px`;
-            //Manager.app.view.style.marginTop = Manager.app.view.style.marginBottom = `${verticalMargin}px`;
+            const style = Manager.app.view.style as CSSStyleDeclaration;
+            style.marginRight = style.marginLeft = `${horizontalMargin}px`;
+            style.marginBottom = style.marginTop = `${verticalMargin}px`;
         }
     }
-    */
 
     // Call this function when you want to go to a new scene
     public static changeScene(newScene: IScene): void {
