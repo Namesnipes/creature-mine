@@ -1,4 +1,4 @@
-import {ObservablePoint, Point, Sprite, Texture} from 'pixi.js';
+import {ObservablePoint, Sprite, Texture} from 'pixi.js';
 import { Scene } from './Scene1';
 import {Component} from '../Component';
 
@@ -11,7 +11,7 @@ export class Actor extends Sprite {
     mScene: Scene;
     mState: ActorState;
     //component array
-    mComponents: Array<Component>;
+    mComponents: Array<Component> = [];
 
     constructor(thisScene: Scene) {
         super();
@@ -75,7 +75,7 @@ export class Actor extends Sprite {
     }
     //update actor
     private OnUpdate(delta: number){
-
+        console.log("actor log, delta: " + delta);
     }
     //calls process input on each component
     public ProcessInput(){

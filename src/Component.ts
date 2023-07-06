@@ -1,17 +1,16 @@
 import { Actor } from './scenes/Actor';
-import { Scene } from './scenes/Scene';
+import { Scene } from './scenes/Scene1';
 
 export class Component{
     private mOwner: Actor;
-    private mUpdateOrder: number;
 
-    constructor(owner: Actor, updateOrder: number) {
+    constructor(owner: Actor) {
         this.mOwner = owner;
-        this.mUpdateOrder = updateOrder;
         this.mOwner.AddComponent(this);
     }
     
     public Update(delta: number): void {
+        console.log("component log, delta: " + delta);
     }
     
     public ProcessInput(): void {

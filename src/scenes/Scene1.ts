@@ -1,12 +1,11 @@
-import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent, ObservablePoint} from 'pixi.js';
-import { Keyboard } from "../Keyboard";
+import { Container, Ticker, Texture} from 'pixi.js';
 import { IScene, Manager } from "../Manager";
 import { Actor } from './Actor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
     private readonly screenHeight: number;
-    private mActors : Array<Actor>;
+    mActors : Array<Actor> = [];
 
     // We promoted clampy to a member of the class
     constructor() {
@@ -17,12 +16,10 @@ export class Scene extends Container implements IScene {
         this.screenHeight = Manager.height;
 
         let cookie: Actor = new Actor(this);
-        cookie.x = this.screenHeight/2.0;
-        cookie.y = this.screenWidth/2.0;
+        cookie.x = this.screenWidth/2.0;
+        cookie.y = this.screenHeight/2.0;
         cookie.SetTexture(Texture.from('cookie.png'));
         this.addChild(cookie);
-
-
 
     }
     public AddActor(actor: Actor){
