@@ -1,4 +1,4 @@
-import { Application, DisplayObject } from "pixi.js";
+import { Application, DisplayObject, Sprite} from "pixi.js";
 import { UserInput } from "./UserInput";
 
 export class Manager {
@@ -87,6 +87,13 @@ export class Manager {
 
         // Add the new one
         Manager.currentScene = newScene;
+
+        //background for all scenes
+        const bg: Sprite = Sprite.from("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjh3anZkb2VvdGk5eW5qazBvZnJpZno4bnl0MWh4bDdueXV3MDh5cSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT0xeMA62E1XIlup68/giphy.gif")
+        bg.width = this.width
+        bg.height = this.height
+        Manager.app.stage.addChild(bg)
+
         Manager.app.stage.addChild(Manager.currentScene);
     }
 
