@@ -2,19 +2,19 @@
     "frames": {
         "cookie1": 
         {
-            "frame": { "x": -12, "y":-11, "w":33, "h":32 },
-            "sourceSize": { "w": 33, "h": 32 },
-            "spriteSourceSize": { "x": 0, "y": 0, "w": 33, "h": 32 }
+            "frame": { "x": 12, "y":11, "w":33, "h":32 },
+            "sourceSize": { "w": 44, "h": 42 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 44, "h": 42 }
         },
         "cookie2": 
         {
-            "frame": { "x": -61, "y":-11, "w":32, "h":32 },
+            "frame": { "x": 61, "y":11, "w":32, "h":32 },
             "sourceSize": { "w": 32, "h": 32 },
             "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 }
         },
         "cookie3": 
         {
-            "frame": { "x": -109, "y":-11, "w":32, "h":32 },
+            "frame": { "x": 109, "y":11, "w":32, "h":32 },
             "sourceSize": { "w": 32, "h": 32 },
             "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 }
         }

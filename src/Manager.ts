@@ -1,4 +1,4 @@
-import { Application, DisplayObject, Sprite} from "pixi.js";
+import { Application, DisplayObject, Sprite, Assets} from "pixi.js";
 import { UserInput } from "./UserInput";
 
 export class Manager {
@@ -48,6 +48,13 @@ export class Manager {
         Manager.resize();
 
         UserInput.initialize()
+
+        this.loadCookies()
+    }
+
+    public static async loadCookies(): Promise<void>{
+        await Assets.load('cookieSprites.json');
+        console.log("cookies loaded")
     }
 
     public static resize(): void {
