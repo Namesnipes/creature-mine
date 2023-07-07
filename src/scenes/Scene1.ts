@@ -58,7 +58,10 @@ export class Scene extends Container implements IScene {
     update(_framesPassed: number): void {
         this.ProcessInput();
         this.UpdateActors();
-        this.mText.text = 'Fat Points: ' + this.mCookie.GetClickNum();
+        this.mText.text = 'Cookies: ' + this.mCookie.GetClickNum();
         
+    }
+    GetCookie(): CookieActor{
+        return this.mCookie;
     }
 }

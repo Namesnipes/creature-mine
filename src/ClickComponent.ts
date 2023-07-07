@@ -21,7 +21,6 @@ export class ClickComponent extends Component{
         if(!this.mClicked){
             const particleContainer = new Container();
             this.mOwner.addChild(particleContainer);
-
             const emitter = new particles.Emitter(particleContainer,particleSettings);
             emitter.autoUpdate = true;
             emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);

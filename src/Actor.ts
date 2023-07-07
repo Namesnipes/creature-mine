@@ -62,7 +62,7 @@ export class Actor extends Sprite {
 
     
     public GetComponent(): any{
-
+        //return the component that matches the input type
     }
     //update function updates actor's components
     public Update(delta: number){

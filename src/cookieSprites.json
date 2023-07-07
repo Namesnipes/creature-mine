@@ -1,0 +1,28 @@
+{
+    "frames": {
+        "cookie1": 
+        {
+            "frame": { "x": -12, "y":-11, "w":33, "h":32 },
+            "sourceSize": { "w": 33, "h": 32 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 33, "h": 32 }
+        },
+        "cookie2": 
+        {
+            "frame": { "x": -61, "y":-11, "w":32, "h":32 },
+            "sourceSize": { "w": 32, "h": 32 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 }
+        },
+        "cookie3": 
+        {
+            "frame": { "x": -109, "y":-11, "w":32, "h":32 },
+            "sourceSize": { "w": 32, "h": 32 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 }
+        }
+    },
+    "meta": {
+        "image": "cookie_sprites.png",
+        "format": "RGBA8888",
+        "size": { "w": 128, "h": 32 },
+        "scale": "1"
+    }
+}
