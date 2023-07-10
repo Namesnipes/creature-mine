@@ -3,6 +3,7 @@ import { UserInput } from "../UserInput";
 import { IScene, Manager } from "../Manager";
 
 export class Scene extends Container implements IScene {
+    assetBundles:string[];
     private readonly screenWidth: number;
     private readonly screenHeight: number;
 
@@ -58,7 +59,7 @@ export class Scene extends Container implements IScene {
             if(hsl_color >= 255) hsl_color = 0
             clampy3.tint = new Color('hsl(' + (rainbow_switch ? hsl_color += 2 : hsl_color -= 2) + ', 100%, 80%, 50%)')
         });
-        
+
         
         
         // dont clear() and redrew 
@@ -165,6 +166,10 @@ export class Scene extends Container implements IScene {
                 button.x = button.x + 5 * delta
             }
         })//
+    }
+
+    onAssetsLoaded(): void {
+        
     }
     update(_framesPassed: number): void {
     }

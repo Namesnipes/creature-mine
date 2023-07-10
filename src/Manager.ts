@@ -1,9 +1,11 @@
 import { Application, DisplayObject, Sprite, Assets} from "pixi.js";
+import { manifest } from "./assets";
 import { UserInput } from "./UserInput";
 
 export class Manager {
     private constructor() { /*this class is purely static. No constructor to see here*/ }
 
+    private static initializeAssetsPromise: Promise<unknown>; 
     // Safely store variables for our game
     private static app: Application;
     private static currentScene: IScene;
@@ -22,7 +24,7 @@ export class Manager {
     }
 
     // Use this function ONCE to start the entire machinery
-    public static initialize(width: number, height: number, background: number): void {
+    public static async initialize(width: number, height: number, background: number): Promise<void> {
 
         // store our width and height
         Manager._width = width;
@@ -34,9 +36,11 @@ export class Manager {
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
             backgroundColor: background,
-            width: width,
+            width: width,           
             height: height
         });
+
+        await Assets.init({ manifest: manifest });
 
         // Add the ticker
         Manager.app.ticker.add(Manager.update)
@@ -48,13 +52,6 @@ export class Manager {
         Manager.resize();
 
         UserInput.initialize()
-
-        this.loadCookies()
-    }
-
-    public static async loadCookies(): Promise<void>{
-        await Assets.load('cookieSprites.json');
-        console.log("cookies loaded")
     }
 
     public static resize(): void {
@@ -85,22 +82,25 @@ export class Manager {
     }
 
     // Call this function when you want to go to a new scene
-    public static changeScene(newScene: IScene): void {
+    public static async changeScene(newScene: IScene): Promise<void> {
         // Remove and destroy old scene... if we had one..
         if (Manager.currentScene) {
             Manager.app.stage.removeChild(Manager.currentScene);
             Manager.currentScene.destroy();
         }
 
+        console.log("loading")
+        await Assets.loadBundle(newScene.assetBundles);
+        newScene.onAssetsLoaded()
+        console.log("done")
         // Add the new one
         Manager.currentScene = newScene;
 
         //background for all scenes
-        const bg: Sprite = Sprite.from("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjh3anZkb2VvdGk5eW5qazBvZnJpZno4bnl0MWh4bDdueXV3MDh5cSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT0xeMA62E1XIlup68/giphy.gif")
+        const bg: Sprite = Sprite.from("cookie_bg")
         bg.width = this.width
         bg.height = this.height
         Manager.app.stage.addChild(bg)
-
         Manager.app.stage.addChild(Manager.currentScene);
     }
 
@@ -120,4 +120,6 @@ export class Manager {
 // Also, this could be in its own file...
 export interface IScene extends DisplayObject {
     update(framesPassed: number): void;
+    onAssetsLoaded(): void
+    assetBundles:string[];
 }

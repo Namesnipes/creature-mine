@@ -7,6 +7,7 @@ import { UserInput } from "../UserInput";
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
     private readonly screenHeight: number;
+    assetBundles:string[] = ["MainScreen"];
     mActors : Array<Actor> = [];
     mTextStyle = new TextStyle({
         fill: "#ffffff",
@@ -29,12 +30,14 @@ export class Scene extends Container implements IScene {
         this.screenWidth = Manager.width;
         this.screenHeight = Manager.height;
 
+        
+        
+
+    }
+
+    onAssetsLoaded(): void {
         this.addChild(this.mCookie);
-
         this.addChild(this.mText);
-        
-        
-
     }
     public AddActor(actor: Actor): void{
         this.mActors.push(actor);
