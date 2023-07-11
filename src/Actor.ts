@@ -67,7 +67,7 @@ export class Actor extends Sprite {
 
 
     /**
-     * Updates the actors components. Called every frame.
+     * Updates the actor's components. Called every frame.
      *
      * @param {number} delta - The time elapsed since the last frame in milliseconds.
      */
@@ -79,10 +79,13 @@ export class Actor extends Sprite {
             this.OnUpdate(delta);
         }
     }
-    //update actor
+    //update this actor
     private OnUpdate(delta: number){
     }
-    //calls process input on each component
+    /**
+     * Calls process input on each component
+     *
+     */
     public ProcessInput(){
         if(this.mState == ActorState.Active){
             this.mComponents.forEach(function(c){
@@ -92,14 +95,17 @@ export class Actor extends Sprite {
         }
     }
     //on process input updates actor based on input
-    public OnProcessInput(){
+    private OnProcessInput(){
 
     }
-
+    /**
+     * Adds a component to the list of components.
+     *
+     * @param {Component} comp - The component to be added.
+     */
     public AddComponent(comp: Component){
         this.mComponents.push(comp);
     }
-
 
 
 }
