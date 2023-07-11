@@ -1,22 +1,17 @@
 export class DataHandler{
-    private encoded_data: string;
     private data: any[] = []
 
     constructor(){
         let temp_data = localStorage.getItem("IdleGameData")
         if(temp_data != null && temp_data.length > 1){
-            this.encoded_data = temp_data
-            this.loadData()
-        } else {
-            this.encoded_data = ""
+            this.loadData(temp_data)
         }
     }
 
     /**
      * Saves all game data by storing it in the browsers local storage.
      *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * @return {void}
      */
     public saveData(): void{
         let temp_save_string : string = ""
@@ -27,8 +22,15 @@ export class DataHandler{
         localStorage.setItem("IdleGameData", this.stringToBase64(temp_save_string))
     }
 
-    public loadData(){
-        let str = this.base64ToString(this.encoded_data)
+ 
+    /**
+     * Parses encoded data from local storage and loads it into the data array.
+     *
+     * @param {string} encoded_data - The encoded data to be loaded.
+     * @return {void}
+     */
+    private loadData(encoded_data: string): void{
+        let str = this.base64ToString(encoded_data)
         let data: string[] = str.split("|")
         for(let i = 0; i < data.length; i++){
             if(data[i] != ""){
@@ -53,6 +55,12 @@ export class DataHandler{
         return new TextDecoder().decode(bytes);
     }
 
+    /**
+     * Sets the number of clicks.
+     *
+     * @param {number} clicks - The number of clicks.
+     * @return {void}
+     */
     public setClicks(clicks: number) : void{
         if(clicks > 0){
             this.data[0] = clicks
