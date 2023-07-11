@@ -2,15 +2,18 @@ import { Application, Sprite, Assets} from "pixi.js";
 import { manifest } from "./assets";
 import { UserInput } from "./UserInput";
 import { IScene } from './scenes/IScene';
+import { DataHandler } from "./DataHandler";
 
 export class Manager {
     private constructor() { /* static class no constructor */ }
 
     //used to check when the Asset Manager is initialized
-    private static initializeAssetsPromise: Promise<unknown>; 
+    private static initializeAssetsPromise: Promise<unknown>;
 
     private static app: Application;
     private static currentScene: IScene;
+
+    public static dataHandler: DataHandler;
 
 
     private static _width: number;
@@ -47,6 +50,7 @@ export class Manager {
             height: height
         });
 
+        this.dataHandler = new DataHandler();
         Manager.initializeAssetsPromise = Assets.init({ manifest: manifest });
 
         // Calls the update function every frame

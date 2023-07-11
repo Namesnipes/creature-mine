@@ -64,7 +64,13 @@ export class Actor extends Sprite {
     public GetComponent(): any{
         //return the component that matches the input type
     }
-    //update function updates actor's components
+
+
+    /**
+     * Updates the actors components. Called every frame.
+     *
+     * @param {number} delta - The time elapsed since the last frame in milliseconds.
+     */
     public Update(delta: number){
         if(this.mState == ActorState.Active){
             this.mComponents.forEach(function(c){

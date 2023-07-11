@@ -1,5 +1,11 @@
 export class UserInput {
     public static state: Map<string, boolean> = new Map<string, boolean>();
+    
+    /**
+     * Initializes the user input event listeners.
+     *
+     * @return {none}
+     */
     public static initialize() {
         document.addEventListener("keydown", UserInput.keyDown);
         document.addEventListener("keyup", UserInput.keyUp);

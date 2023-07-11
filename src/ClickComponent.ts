@@ -9,7 +9,7 @@ export class ClickComponent extends Component {
     mClicked: boolean = false;
     mIsShrinking: boolean = true;
     mClickScale: number = 0.05;
-    public mClickNum: number = 0;
+    public mClickNum: number = Manager.dataHandler.getClicks();
     constructor(owner: Actor) {
         super(owner);
         this.mOwner = owner;
@@ -31,6 +31,7 @@ export class ClickComponent extends Component {
             
             this.mClicked = true;
             this.mClickNum++;
+            Manager.dataHandler.setClicks(this.mClickNum)
         }
     }
 
