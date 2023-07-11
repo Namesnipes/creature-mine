@@ -1,6 +1,7 @@
 import { ColorMatrixFilter, Sprite, AnimatedSprite, Container, Graphics, TextStyle, Color, Text, Ticker, Texture, FederatedPointerEvent} from 'pixi.js';
 import { UserInput } from "../UserInput";
-import { IScene, Manager } from "../Manager";
+import { Manager } from "../Manager";
+import { IScene } from './IScene';
 
 export class Scene extends Container implements IScene {
     assetBundles:string[];
