@@ -1,5 +1,8 @@
 export class DataHandler{
-    private data: any[] = []
+
+    private static DATA_KEYS: string[] = ["clicks"]
+    
+    private data_values: any[] = []
 
     constructor(){
         let temp_data = localStorage.getItem("IdleGameData")
@@ -15,8 +18,8 @@ export class DataHandler{
      */
     public saveData(): void{
         let temp_save_string : string = ""
-        for(let i = 0; i < this.data.length; i++){
-            temp_save_string += this.data[i] + "|"
+        for(let i = 0; i < this.data_values.length; i++){
+            temp_save_string += this.data_values[i] + "|"
         }
         console.log("Saving data:", temp_save_string)
         localStorage.setItem("IdleGameData", this.stringToBase64(temp_save_string))
@@ -34,7 +37,7 @@ export class DataHandler{
         let data: string[] = str.split("|")
         for(let i = 0; i < data.length; i++){
             if(data[i] != ""){
-                this.data.push(data[i])
+                this.data_values.push(data[i])
                 console.log("Loading", data[i])
             }
         }
@@ -61,20 +64,19 @@ export class DataHandler{
      * @param {number} clicks - The number of clicks.
      * @return {void}
      */
-    public setClicks(clicks: number) : void{
-        if(clicks > 0){
-            this.data[0] = clicks
+    public setData(key: string, data: string | number) : void{
+        let data_index: number = DataHandler.DATA_KEYS.indexOf(key)
+        if(data_index != -1){
+            this.data_values[data_index] = data
             this.saveData()
         }
     }
 
-    public getClicks(): number{
-        let temp = this.data[0]
-        if(temp){
-            return temp
-        } else {
-            this.setClicks(0)
-            return 0
+    public getData(key: string): any{
+        let data_index: number = DataHandler.DATA_KEYS.indexOf(key)
+        if(data_index != -1){
+            return this.data_values[data_index]
         }
+        return null
     }
 }
