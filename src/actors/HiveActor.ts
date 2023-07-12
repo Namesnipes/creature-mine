@@ -2,7 +2,9 @@ import { Actor } from './Actor';
 import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
-import {FederatedMouseEvent, Texture} from 'pixi.js';
+import {Container, FederatedMouseEvent, Texture} from 'pixi.js';
+import * as particleSettings from "../cookemit.json";
+import * as particles from '@pixi/particle-emitter';
 
 export class HiveActor extends Actor {
     private mClicker: ClickComponent = new ClickComponent(this,this.onClick);
@@ -17,7 +19,15 @@ export class HiveActor extends Actor {
         this.y = 0 + this.height/2;
 
     }
-    public onClick(): void {
-        console.log("yes")
+    public onClick(e:FederatedMouseEvent): void {
+        const particleContainer = new Container();
+        //this.addChild(particleContainer);
+        const emitter = new particles.Emitter(particleContainer,particleSettings);
+        emitter.autoUpdate = true;
+        emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);
+        emitter.emit = true;
+        setTimeout(function(){
+            emitter.emit = false
+        },500);
     }
 }

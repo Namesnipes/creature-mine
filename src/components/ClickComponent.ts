@@ -22,17 +22,8 @@ export class ClickComponent extends Component {
     }
 
     public onClick(e: FederatedMouseEvent):void{
-        this.mClickCallback()
+        this.mClickCallback(e)
         if(!this.mClicked){
-            const particleContainer = new Container();
-            this.mOwner.addChild(particleContainer);
-            const emitter = new particles.Emitter(particleContainer,particleSettings);
-            emitter.autoUpdate = true;
-            emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);
-            emitter.emit = true;
-            setTimeout(function(){
-                emitter.emit = false
-            },500);
             
             this.mClicked = true;
             this.mClickNum++;
