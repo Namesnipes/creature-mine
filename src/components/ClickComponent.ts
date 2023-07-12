@@ -22,7 +22,7 @@ export class ClickComponent extends Component {
     }
 
     public onClick(e: FederatedMouseEvent):void{
-        this.mClickCallback(e)
+        this.mClickCallback.bind(this.mOwner)(e)
         if(!this.mClicked){
             
             this.mClicked = true;

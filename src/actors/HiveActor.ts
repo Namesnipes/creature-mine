@@ -21,7 +21,7 @@ export class HiveActor extends Actor {
     }
     public onClick(e:FederatedMouseEvent): void {
         const particleContainer = new Container();
-        //this.addChild(particleContainer);
+        this.addChild(particleContainer);
         const emitter = new particles.Emitter(particleContainer,particleSettings);
         emitter.autoUpdate = true;
         emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);
