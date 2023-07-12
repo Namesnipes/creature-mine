@@ -1,8 +1,8 @@
 import { Container, Ticker, Text, TextStyle} from 'pixi.js';
 import { Manager } from "../Manager";
 import { IScene } from './IScene';
-import { Actor } from '../Actor';
-import { CookieActor } from '../CookieActor';
+import { Actor } from '../actors/Actor';
+import { CookieActor } from '../actors/CookieActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;

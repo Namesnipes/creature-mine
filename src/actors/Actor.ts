@@ -1,6 +1,6 @@
 import {ObservablePoint, Sprite, Texture} from 'pixi.js';
-import { Scene } from './scenes/Scene1';
-import {Component} from './Component';
+import { Scene } from '../scenes/Scene1';
+import {Component} from '../Component';
 
 enum ActorState{
     Active,
@@ -61,7 +61,8 @@ export class Actor extends Sprite {
     // }
 
     
-    public GetComponent(): any{
+    public GetComponent(comp : typeof Component): any{
+        console.log(comp)
         //return the component that matches the input type
     }
 

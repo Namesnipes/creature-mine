@@ -77,7 +77,7 @@ export class DataHandler{
      * Retrieves data associated with the given key. The key name must be defined in DataHandler.DATA_KEYS before it can be used.
      *
      * @param {string} key - The key of the data to be retrieved.
-     * @return {any} The value associated with the given key, or null if the key does not exist.
+     * @return {string | number} The value associated with the given key, or null if the key does not exist.
      */
     public getData(key: string): any{
         let index: number = DataHandler.DATA_KEYS.indexOf(key)

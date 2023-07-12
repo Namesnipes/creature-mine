@@ -1,4 +1,4 @@
-import { Actor } from './Actor';
+import { Actor } from './actors/Actor';
 import { Scene } from './scenes/Scene1';
 
 export class Component{

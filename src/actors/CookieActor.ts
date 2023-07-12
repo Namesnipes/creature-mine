@@ -1,7 +1,7 @@
 import { Actor } from './Actor';
-import { ClickComponent } from './ClickComponent';
-import { Scene } from './scenes/Scene1';
-import { Manager } from './Manager';
+import { ClickComponent } from '../ClickComponent';
+import { Scene } from '../scenes/Scene1';
+import { Manager } from '../Manager';
 import {Texture} from 'pixi.js';
 
 export class CookieActor extends Actor {

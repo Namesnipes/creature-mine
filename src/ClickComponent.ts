@@ -1,4 +1,4 @@
-import { Actor } from "./Actor";
+import { Actor } from "./actors/Actor";
 import { Component } from "./Component";
 import { Point, ParticleContainer, Texture, FederatedMouseEvent, Container } from 'pixi.js';
 import * as particleSettings from "./cookemit.json";
@@ -21,6 +21,7 @@ export class ClickComponent extends Component {
         if(!this.mClicked){
             const particleContainer = new Container();
             this.mOwner.addChild(particleContainer);
+            this.mOwner.GetComponent(ClickComponent)
             const emitter = new particles.Emitter(particleContainer,particleSettings);
             emitter.autoUpdate = true;
             emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);
