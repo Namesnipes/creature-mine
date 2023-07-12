@@ -18,6 +18,10 @@ export const manifest:ResolverManifest = {
                 "name":"cookie_bg",
                 "srcs": "./cookieBackground.jpg"
             },
+            {
+                "name":"hive",
+                "srcs": "./hive.png"
+            },
             ]
         }
     ]

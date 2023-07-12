@@ -1,6 +1,6 @@
 import {ObservablePoint, Sprite, Texture} from 'pixi.js';
 import { Scene } from '../scenes/Scene1';
-import {Component} from '../Component';
+import {Component} from '../components/Component';
 
 enum ActorState{
     Active,

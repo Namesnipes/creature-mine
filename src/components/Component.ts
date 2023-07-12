@@ -1,5 +1,5 @@
-import { Actor } from './actors/Actor';
-import { Scene } from './scenes/Scene1';
+import { Actor } from '../actors/Actor';
+import { Scene } from '../scenes/Scene1';
 
 export class Component{
     protected mOwner: Actor;

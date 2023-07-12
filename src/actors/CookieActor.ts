@@ -1,11 +1,11 @@
 import { Actor } from './Actor';
-import { ClickComponent } from '../ClickComponent';
+import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
 import {Texture} from 'pixi.js';
 
 export class CookieActor extends Actor {
-    private mClicker: ClickComponent = new ClickComponent(this);
+    private mClicker: ClickComponent = new ClickComponent(this,this.onClick);
     constructor(scene: Scene){
         super(scene);
         this.anchor.set(0.5);
@@ -16,5 +16,9 @@ export class CookieActor extends Actor {
     public GetClickNum(): number{
         console.log(this.mClicker.mClickNum);
         return this.mClicker.mClickNum;
+    }
+
+    public onClick(): void {
+        
     }
 }

@@ -3,6 +3,7 @@ import { Manager } from "../Manager";
 import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
 import { CookieActor } from '../actors/CookieActor';
+import { HiveActor } from '../actors/HiveActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -20,7 +21,8 @@ export class Scene extends Container implements IScene {
         strokeThickness: 6
     });
     mText = new Text('Cookies: ', this.mTextStyle);
-    mCookie: CookieActor = new CookieActor(this);
+    mCookie: CookieActor;
+    mHive: HiveActor;
 
     // We promoted clampy to a member of the class
     constructor() {
@@ -36,7 +38,9 @@ export class Scene extends Container implements IScene {
     }
 
     onAssetsLoaded(): void {
-        this.addChild(this.mCookie);
+        this.mHive = new HiveActor(this);
+
+        this.addChild(this.mHive);
         this.addChild(this.mText);
     }
     public AddActor(actor: Actor): void{
@@ -61,7 +65,7 @@ export class Scene extends Container implements IScene {
     update(_framesPassed: number): void {
         this.ProcessInput();
         this.UpdateActors();
-        this.mText.text = 'Cookies: ' + this.mCookie.GetClickNum();
+        //this.mText.text = 'Cookies: ' + this.mCookie.GetClickNum();
         
     }
     GetCookie(): CookieActor{
