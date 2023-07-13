@@ -33,21 +33,6 @@ export class ClickComponent extends Component {
 
 
     public override Update(delta: number): void {
-        if (this.mClicked) {
-            if (this.mIsShrinking) {
-                this.mOwner.scale = new Point(this.mOwner.scale.x - this.mClickScale, this.mOwner.scale.y - this.mClickScale);
-                if (this.mOwner.scale.x - this.mClickScale <= 0.1) {
-                    this.mIsShrinking = false;
-                }
-            }
-            else {
-                this.mOwner.scale = new Point(this.mOwner.scale.x + this.mClickScale, this.mOwner.scale.y + this.mClickScale);
-                if (this.mOwner.scale.x + this.mClickScale >= 0.5) {
-                    this.mClicked = false;
-                    this.mIsShrinking = true;
-                }
-            }
-        }
     }
 
     public override ProcessInput(): void {

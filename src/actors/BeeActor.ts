@@ -3,31 +3,29 @@ import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
 import {Texture} from 'pixi.js';
+import { LerpComponent } from '../components/LerpComponent';
 
 export class BeeActor extends Actor {
-    private mClicker: ClickComponent = new ClickComponent(this,this.onClick);
+    private mMover: LerpComponent = new LerpComponent(this);
+    private middle: Boolean = true;
     constructor(scene: Scene){
         super(scene);
         this.anchor.set(0.5);
-        this.x = Manager.width/2.0;
-        this.y = Manager.height/2.0;
+        this.x = Manager.width;
+        this.y = Manager.height;
         this.scale.set(0.1,0.1);
-        this.SetTexture(Texture.from('bee')); 
-    }
-    public GetClickNum(): number{
-        console.log(this.mClicker.mClickNum);
-        return this.mClicker.mClickNum;
+        this.SetTexture(Texture.from('bee'));
+        this.mMover.Move(Manager.width/2, Manager.height/2);
+        setInterval(() =>{
+
+            if(this.middle){
+                this.mMover.Move(Manager.width/2, Manager.height/2);
+            } else {
+                this.mMover.Move(Math.random() * Manager.width, Math.random() * Manager.height);
+            }
+
+            this.middle = !this.middle
+        },Math.random()*4000)
     }
 
-    public onClick(): void {
-        
-    }
-
-    Lerp(start: number, stop: number, amt: number) {
-        if (amt > 1)
-            amt = 1;
-        else if (amt < 0)
-            amt = 0;
-        return start + (stop - start) * amt;
-    }
 }
