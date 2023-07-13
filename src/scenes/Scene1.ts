@@ -21,7 +21,7 @@ export class Scene extends Container implements IScene {
         miterLimit: 0,
         strokeThickness: 6
     });
-    mText = new Text('Cookies: ', this.mTextStyle);
+    mText = new Text('Bees: ', this.mTextStyle);
     mCookie: CookieActor;
     mHive: HiveActor;
     mBee: BeeActor;
@@ -42,8 +42,8 @@ export class Scene extends Container implements IScene {
     onAssetsLoaded(): void {
         this.mHive = new HiveActor(this);
         this.mBee = new BeeActor(this);
-
         this.addChild(this.mBee);
+
         this.addChild(this.mHive);
         this.addChild(this.mText);
     }
@@ -69,7 +69,7 @@ export class Scene extends Container implements IScene {
     update(_framesPassed: number): void {
         this.ProcessInput();
         this.UpdateActors();
-        //this.mText.text = 'Cookies: ' + this.mCookie.GetClickNum();
+        this.mText.text = 'Bees: ' + this.mHive.mClicker.mClickNum
         
     }
     GetCookie(): CookieActor{
