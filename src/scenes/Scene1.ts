@@ -4,6 +4,7 @@ import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
 import { CookieActor } from '../actors/CookieActor';
 import { HiveActor } from '../actors/HiveActor';
+import { BeeActor } from '../actors/BeeActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -23,6 +24,7 @@ export class Scene extends Container implements IScene {
     mText = new Text('Cookies: ', this.mTextStyle);
     mCookie: CookieActor;
     mHive: HiveActor;
+    mBee: BeeActor;
 
     // We promoted clampy to a member of the class
     constructor() {
@@ -39,7 +41,9 @@ export class Scene extends Container implements IScene {
 
     onAssetsLoaded(): void {
         this.mHive = new HiveActor(this);
+        this.mBee = new BeeActor(this);
 
+        this.addChild(this.mBee);
         this.addChild(this.mHive);
         this.addChild(this.mText);
     }

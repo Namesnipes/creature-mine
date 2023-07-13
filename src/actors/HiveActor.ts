@@ -4,13 +4,14 @@ import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
 import {Container, FederatedMouseEvent, Texture} from 'pixi.js';
 import * as particleSettings from "../cookemit.json";
-import * as particles from '@pixi/particle-emitter';
+import { ParticleComponent } from '../components/ParticleComponent';
 
 export class HiveActor extends Actor {
-    private mClicker: ClickComponent = new ClickComponent(this,this.onClick);
+    private mClicker: ClickComponent = new ClickComponent(this,this.onClick,Manager.dataHandler.getData("honey"));
+    private mEmitter: ParticleComponent = new ParticleComponent(this,particleSettings);
     constructor(scene: Scene){
         super(scene);
-        this.anchor.set(0.5); // 0,0 is at top right of the sprite
+        this.anchor.set(0.5);
         this.SetTexture(Texture.from('hive'));
         this.scale.set(0.5,0.5);
 
@@ -20,14 +21,7 @@ export class HiveActor extends Actor {
 
     }
     public onClick(e:FederatedMouseEvent): void {
-        const particleContainer = new Container();
-        this.addChild(particleContainer);
-        const emitter = new particles.Emitter(particleContainer,particleSettings);
-        emitter.autoUpdate = true;
-        emitter.updateSpawnPos(e.globalX-Manager.width/2, e.globalY-Manager.height/2);
-        emitter.emit = true;
-        setTimeout(function(){
-            emitter.emit = false
-        },500);
+        Manager.dataHandler.setData("honey",this.mClicker.mClickNum)
+        this.mEmitter.emitParticles(e.getLocalPosition(this).x,e.getLocalPosition(this).y);
     }
 }

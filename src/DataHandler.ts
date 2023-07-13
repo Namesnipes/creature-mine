@@ -1,6 +1,6 @@
 export class DataHandler{
 
-    private static DATA_KEYS: string[] = ["clicks"]
+    private static DATA_KEYS: string[] = ["honey"]
     
     private dataValues: any[] = []
 
@@ -39,6 +39,7 @@ export class DataHandler{
             if(data[i] != ""){
                 this.dataValues.push(data[i])
                 console.log("Loading", data[i])
+                console.log(this.dataValues)
             }
         }
     }

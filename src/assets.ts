@@ -22,6 +22,10 @@ export const manifest:ResolverManifest = {
                 "name":"hive",
                 "srcs": "./hive.png"
             },
+            {
+                "name":"bee",
+                "srcs": "./bee.png"
+            },
             ]
         }
     ]

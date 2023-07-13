@@ -11,24 +11,24 @@ export class ClickComponent extends Component {
     mClickScale: number = 0.05;
     mClickCallback: Function;
 
-    public mClickNum: number = Manager.dataHandler.getData("clicks");
+    public mClickNum: number;
 
-    constructor(owner: Actor, clickCallback: Function) {
+    constructor(owner: Actor, clickCallback: Function, clickNum?: number) {
         super(owner);
         this.mOwner = owner;
         this.mClickCallback = clickCallback
+        if(clickNum){
+            this.mClickNum = clickNum
+        } else {
+            this.mClickNum = 0
+        }
         owner.interactive = true;
         owner.on("pointertap", this.onClick, this);
     }
 
     public onClick(e: FederatedMouseEvent):void{
         this.mClickCallback.bind(this.mOwner)(e)
-        if(!this.mClicked){
-            
-            this.mClicked = true;
-            this.mClickNum++;
-            Manager.dataHandler.setData("clicks",this.mClickNum)
-        }
+        this.mClickNum++;
     }
 
 
