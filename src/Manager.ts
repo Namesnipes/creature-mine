@@ -120,7 +120,7 @@ export class Manager {
         Manager.currentScene = newScene;
 
         // Set the background for all scenes
-        const bg: Sprite = Sprite.from("cookie_bg")
+        const bg: Sprite = Sprite.from("field_bg")
         bg.width = this.width
         bg.height = this.height
         Manager.app.stage.addChild(bg)

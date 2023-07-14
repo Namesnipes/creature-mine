@@ -1,10 +1,12 @@
-import { Container, Ticker, Text, TextStyle} from 'pixi.js';
+import { Container, Ticker, Text, TextStyle, Graphics} from 'pixi.js';
 import { Manager } from "../Manager";
 import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
 import { CookieActor } from '../actors/CookieActor';
 import { HiveActor } from '../actors/HiveActor';
 import { BeeActor } from '../actors/BeeActor';
+import { FlowerActor } from '../actors/FlowerActor';
+import { GardenContainer } from '../actors/GardenContainer';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -22,30 +24,36 @@ export class Scene extends Container implements IScene {
         strokeThickness: 6
     });
     mText = new Text('Bees: ', this.mTextStyle);
-    mCookie: CookieActor;
     mHive: HiveActor;
     mBee: BeeActor;
+    mFlower: FlowerActor;
 
-    // We promoted clampy to a member of the class
     constructor() {
         super(); // Mandatory! This calls the superclass constructor.
-
-        // see how members of the class need `this.`?
         this.screenWidth = Manager.width;
         this.screenHeight = Manager.height;
-
+        this.sortableChildren = true; // Lets zindex work
         
         
 
     }
 
-    onAssetsLoaded(): void {
+    public onAssetsLoaded(): void {
         this.mHive = new HiveActor(this);
-        this.mBee = new BeeActor(this);
-        this.addChild(this.mBee);
+        this.addChild(this.mHive)
+        this.addChild(this.mText)
+        this.createFlowerField()
+    }
 
-        this.addChild(this.mHive);
-        this.addChild(this.mText);
+    private createFlowerField(): void{
+        let garden: GardenContainer = new GardenContainer(this);
+        for(let i = 0; i < 10; i++){
+            var flower = new FlowerActor(this);
+            flower.x = Math.random ()*Manager.width
+            flower.y = Math.random ()*Manager.height/2
+            garden.addChild(flower)
+        }
+        this.addChild(garden)
     }
     public AddActor(actor: Actor): void{
         this.mActors.push(actor);
@@ -60,6 +68,7 @@ export class Scene extends Container implements IScene {
     //update input on all actors
     private UpdateActors(): void{
         //TODO:make a copy of mactors and go thru that instead
+        //console.log(this.mActors)
         this.mActors.forEach(function(child){
             child.Update(Ticker.shared.deltaMS);
         });
@@ -71,8 +80,5 @@ export class Scene extends Container implements IScene {
         this.UpdateActors();
         this.mText.text = 'Bees: ' + this.mHive.mClicker.mClickNum
         
-    }
-    GetCookie(): CookieActor{
-        return this.mCookie;
     }
 }

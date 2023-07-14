@@ -16,7 +16,6 @@ export class Component{
      * @return {void} undefined
      */
     public Update(delta: number): void {
-        console.log(delta);
     }
     
     /**

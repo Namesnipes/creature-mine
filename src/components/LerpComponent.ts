@@ -27,16 +27,15 @@ export class LerpComponent extends Component {
         this.mLerpPercent = 0
     }
 public override Update(delta: number): void {
-
     if (this.isLerping) {
-        console.log(Helper.Lerp(this.mOwner.x, this.lerpToX, this.mLerpPercent),this.mLerpPercent)
+        //console.log(Helper.Lerp(this.mOwner.x, this.lerpToX, this.mLerpPercent),this.mLerpPercent)
         this.mOwner.x = Helper.Lerp(this.originX, this.lerpToX, this.mLerpPercent);
         this.mOwner.y = Helper.Lerp(this.originY, this.lerpToY, this.mLerpPercent);
-    }
 
-    this.mLerpPercent += delta / 1000; // percent is between 0 and 1
-    if(this.mLerpPercent >= 1){
-        this.isLerping = false
+        this.mLerpPercent += delta / 1000; // percent is between 0 and 1
+        if(this.mLerpPercent >= 1){
+            this.isLerping = false
+        }
     }
 }
     public override ProcessInput(): void {

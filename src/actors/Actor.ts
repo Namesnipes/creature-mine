@@ -1,6 +1,9 @@
-import {ObservablePoint, Sprite, Texture} from 'pixi.js';
+import {Container, ObservablePoint, Sprite, Texture} from 'pixi.js';
 import { Scene } from '../scenes/Scene1';
 import {Component} from '../components/Component';
+import { Manager } from '../Manager';
+import { SwarmContainer } from './SwarmContainer';
+import { LerpComponent } from '../components/LerpComponent';
 
 enum ActorState{
     Active,
@@ -13,16 +16,15 @@ export class Actor extends Sprite {
     //component array
     mComponents: Array<Component> = [];
 
-    constructor(thisScene: Scene) {
+    constructor(scene: Scene) {
         super();
-        this.mState = ActorState.Active;
-        this.mScene= thisScene;
         //TODO: add actor to scene's actor vector
+        this.mState = ActorState.Active;
+        this.mScene = scene;
         this.mScene.AddActor(this);
 
 
     }
-
     public GetPosition(): ObservablePoint {
         return this.position;
     }

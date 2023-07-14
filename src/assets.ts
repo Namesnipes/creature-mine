@@ -15,8 +15,8 @@ export const manifest:ResolverManifest = {
                 "srcs": "./cookieSprites.json"
             },
             {
-                "name":"cookie_bg",
-                "srcs": "./cookieBackground.jpg"
+                "name":"field_bg",
+                "srcs": "./field.jpg"
             },
             {
                 "name":"hive",
@@ -25,6 +25,10 @@ export const manifest:ResolverManifest = {
             {
                 "name":"bee",
                 "srcs": "./bee.png"
+            },
+            {
+                "name":"flower",
+                "srcs": "./flower.png"
             },
             ]
         }
