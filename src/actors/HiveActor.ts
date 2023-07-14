@@ -22,7 +22,7 @@ export class HiveActor extends Actor {
 
     }
     public onClick(e:FederatedMouseEvent): void {
-        Manager.dataHandler.setData("honey",this.mClicker.mClickNum)
+        this.addHoney()
         this.mEmitter.emitParticles(e.getLocalPosition(this).x,e.getLocalPosition(this).y);
         this.makeBee()
     }
