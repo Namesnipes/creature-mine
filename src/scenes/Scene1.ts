@@ -6,7 +6,6 @@ import { CookieActor } from '../actors/CookieActor';
 import { HiveActor } from '../actors/HiveActor';
 import { BeeActor } from '../actors/BeeActor';
 import { FlowerActor } from '../actors/FlowerActor';
-import { GardenContainer } from '../actors/GardenContainer';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -39,24 +38,36 @@ export class Scene extends Container implements IScene {
     }
 
     public onAssetsLoaded(): void {
+        this.createFlowerField()
         this.mHive = new HiveActor(this);
         this.addChild(this.mHive)
         this.addChild(this.mText)
-        this.createFlowerField()
     }
 
     private createFlowerField(): void{
-        let garden: GardenContainer = new GardenContainer(this);
         for(let i = 0; i < 10; i++){
             var flower = new FlowerActor(this);
             flower.x = Math.random ()*Manager.width
-            flower.y = Math.random ()*Manager.height/2
-            garden.addChild(flower)
+            flower.y = Manager.height/2 + Math.random ()*Manager.height/2
+            this.addChild(flower)
         }
-        this.addChild(garden)
     }
     public AddActor(actor: Actor): void{
         this.mActors.push(actor);
+    }
+
+    public getActors(): Array<Actor>{
+        return this.mActors;
+    }
+
+    public getFlowers(): Array<FlowerActor>{
+        let temp = []
+        for (const flower of this.mActors) {
+            if (flower instanceof FlowerActor) {
+                temp.push(flower)
+            }
+        }
+        return temp
     }
     //process input on all actors
     private ProcessInput(): void{
@@ -78,7 +89,7 @@ export class Scene extends Container implements IScene {
     update(_framesPassed: number): void {
         this.ProcessInput();
         this.UpdateActors();
-        this.mText.text = 'Bees: ' + this.mHive.mClicker.mClickNum
+        this.mText.text = 'Honey: ' + Manager.dataHandler.getNumberData("honey")
         
     }
 }

@@ -10,6 +10,7 @@ export class LerpComponent extends Component {
     private originY: number;
     private lerpToX: number;
     private lerpToY: number;
+    private lerpPromiseResolve: (value: void | PromiseLike<void>) => void;
 
     constructor(owner: Actor) {
         super(owner);
@@ -18,13 +19,16 @@ export class LerpComponent extends Component {
 
     //TODO: make this a promise, send an event out when the lerp is finished
     //TODO: add speed as a parameter
-    public Move(x1: number, y1: number) {
-        this.isLerping = true;
-        this.originX = this.mOwner.x;
-        this.originY = this.mOwner.y
-        this.lerpToX = x1
-        this.lerpToY = y1
-        this.mLerpPercent = 0
+    public Move(x1: number, y1: number): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.isLerping = true;
+            this.originX = this.mOwner.x;
+            this.originY = this.mOwner.y
+            this.lerpToX = x1
+            this.lerpToY = y1
+            this.mLerpPercent = 0
+            this.lerpPromiseResolve = resolve
+        })
     }
 public override Update(delta: number): void {
     if (this.isLerping) {
@@ -34,6 +38,7 @@ public override Update(delta: number): void {
 
         this.mLerpPercent += delta / 1000; // percent is between 0 and 1
         if(this.mLerpPercent >= 1){
+            this.lerpPromiseResolve()
             this.isLerping = false
         }
     }

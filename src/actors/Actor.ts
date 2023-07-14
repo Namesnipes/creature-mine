@@ -1,9 +1,6 @@
-import {Container, ObservablePoint, Sprite, Texture} from 'pixi.js';
+import {ObservablePoint, Sprite, Texture} from 'pixi.js';
 import { Scene } from '../scenes/Scene1';
 import {Component} from '../components/Component';
-import { Manager } from '../Manager';
-import { SwarmContainer } from './SwarmContainer';
-import { LerpComponent } from '../components/LerpComponent';
 
 enum ActorState{
     Active,

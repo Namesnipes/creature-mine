@@ -2,17 +2,14 @@ import { Actor } from './Actor';
 import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
-import {Container, FederatedMouseEvent, Texture} from 'pixi.js';
+import {Container, FederatedMouseEvent, ObservablePoint, Texture} from 'pixi.js';
 import * as particleSettings from "../cookemit.json";
 import { ParticleComponent } from '../components/ParticleComponent';
 import { BeeActor } from './BeeActor';
-import { SwarmContainer } from './SwarmContainer';
 
 export class HiveActor extends Actor {
-    public mClicker: ClickComponent = new ClickComponent(this,this.onClick,Manager.dataHandler.getData("honey"));
+    public mClicker: ClickComponent = new ClickComponent(this,this.onClick,Manager.dataHandler.getNumberData("honey"));
     private mEmitter: ParticleComponent = new ParticleComponent(this,particleSettings);
-    private mContainer: SwarmContainer;
-    private bees: BeeActor[] = [];
     constructor(scene: Scene){
         super(scene);
         this.SetTexture(Texture.from('hive'));
@@ -21,11 +18,6 @@ export class HiveActor extends Actor {
         // set position to top right of screen
         this.x = Manager.width - this.width;
         this.y = 0;
-
-        this.mContainer = new SwarmContainer(this.mScene,this.width,this.height);
-        this.mContainer.zIndex = this.zIndex + 1
-        this.mContainer.x = this.x;
-        this.mContainer.y = this.y;
         this.makeBee()
 
     }
@@ -36,9 +28,22 @@ export class HiveActor extends Actor {
     }
 
     public makeBee(){
-        let bee: BeeActor = new BeeActor(this.mScene,this.mContainer);
+        let bee: BeeActor = new BeeActor(this.mScene);
+        this.mScene.addChild(bee)
+        bee.zIndex = 100
         bee.scale.set(0.05,0.05)
-        bee.setFlyingBounds(this.width,this.height);
-        bee.startFlying();
+        bee.setReturnPoint(this.x + this.width/2, this.y + this.height/2)
+        this.startWorking(bee)
+    }
+
+    public async startWorking(b: BeeActor){
+        await b.collectHoney()
+        this.addHoney()
+        this.startWorking(b)
+    }
+    public addHoney(){
+        let currentHoney: number = Manager.dataHandler.getNumberData("honey")
+        console.log(currentHoney)
+        Manager.dataHandler.setData("honey",(currentHoney + 1) as number)
     }
 }

@@ -80,12 +80,11 @@ export class DataHandler{
      * @param {string} key - The key of the data to be retrieved.
      * @return {string | number} The value associated with the given key, or null if the key does not exist.
      */
-    public getData(key: string): any{
+    public getNumberData(key: string): number{
         let index: number = DataHandler.DATA_KEYS.indexOf(key)
         if(index !== -1){
-            return this.dataValues[index]
+            return parseInt(this.dataValues[index])
         }
-
-        return null
+        return 0
     }
 }
