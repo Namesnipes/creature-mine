@@ -11,6 +11,8 @@ export class FlowerActor extends Actor {
         this.y = Manager.height;
         this.scale.set(0.1, 0.1);
         this.SetTexture(Texture.from('flower'));
+        //add flower to flower array in scene on construction
+        this.mScene.AddFlower(this);
     }
 
 }

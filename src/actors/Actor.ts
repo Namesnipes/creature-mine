@@ -15,7 +15,6 @@ export class Actor extends Sprite {
 
     constructor(scene: Scene) {
         super();
-        //TODO: add actor to scene's actor vector
         this.mState = ActorState.Active;
         this.mScene = scene;
         this.mScene.AddActor(this);
@@ -47,19 +46,6 @@ export class Actor extends Sprite {
     public SetTexture(texture: Texture){
         this.texture = texture;
     }
-    // public GetForward(): Point{
-    //     //x is cosine of the rotation angle
-    //     //y is sine of rotation angle (must then negate due to coordinate system)
-    //     let retVal: Point=
-    //         new Point(Math.cos(this.rotation), (-1 * (Math.sin(this.rotation))));
-    //     //normalize to be unit vector
-
-    //     retVal.normalize();
-
-    //     return retVal;
-    // }
-
-    
     public GetComponent(comp : typeof Component): any{
         console.log(comp)
         //return the component that matches the input type
