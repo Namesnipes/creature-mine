@@ -2,7 +2,6 @@ import { Container, Ticker, Text, TextStyle, Graphics} from 'pixi.js';
 import { Manager } from "../Manager";
 import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
-import { CookieActor } from '../actors/CookieActor';
 import { HiveActor } from '../actors/HiveActor';
 import { BeeActor } from '../actors/BeeActor';
 import { FlowerActor } from '../actors/FlowerActor';
@@ -60,6 +59,11 @@ export class Scene extends Container implements IScene {
         return this.mActors;
     }
 
+    /**
+     * Retrieves an array of all FlowerActor objects in the scene.
+     *
+     * @return {Array<FlowerActor>} An array of FlowerActor objects.
+     */
     public getFlowers(): Array<FlowerActor>{
         let temp = []
         for (const flower of this.mActors) {

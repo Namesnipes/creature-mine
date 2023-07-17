@@ -1,4 +1,4 @@
-import { Application, Sprite, Assets} from "pixi.js";
+import { Application, Sprite, Assets } from "pixi.js";
 import { manifest } from "./assets";
 import { UserInput } from "./UserInput";
 import { IScene } from './scenes/IScene';
@@ -25,7 +25,7 @@ export class Manager {
         return Manager._height;
     }
 
-    
+
     /**
      * Initializes the PIXI application.
      *
@@ -46,7 +46,7 @@ export class Manager {
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
             backgroundColor: background,
-            width: width,           
+            width: width,
             height: height
         });
 
@@ -55,7 +55,7 @@ export class Manager {
 
         // Calls the update function every frame
         Manager.app.ticker.add(Manager.update)
-        
+
         // Runs the resize function when screen size changes
         window.addEventListener("resize", Manager.resize);
 
@@ -89,7 +89,7 @@ export class Manager {
         const verticalMargin = (screenHeight - enlargedHeight) / 2;
 
         // Set sizes and margins with css
-        if(Manager.app.view.style){
+        if (Manager.app.view.style) {
             Manager.app.view.style.width = `${enlargedWidth}px`;
             Manager.app.view.style.height = `${enlargedHeight}px`;
             const style = Manager.app.view.style as CSSStyleDeclaration;

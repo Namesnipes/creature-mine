@@ -24,22 +24,22 @@ export class ParticleComponent extends Component {
      * @param {number} y - The y-coordinate of the particle spawn position. Coordinates relative to the actor's position.
      * @param {number} duration - The duration in milliseconds for which the particle emission should be active. Omit to emit only 1 particle.
      */
-    public emitParticles(x: number,y: number, duration: number = 1){
-        if(!this.mContainer){
+    public emitParticles(x: number, y: number, duration: number = 1) {
+        if (!this.mContainer) {
             this.mContainer = new Container();
             this.mOwner.addChild(this.mContainer);
         }
 
-        if(!this.mEmitter){
-            this.mEmitter = new particles.Emitter(this.mContainer,particleSettings);
+        if (!this.mEmitter) {
+            this.mEmitter = new particles.Emitter(this.mContainer, particleSettings);
             this.mEmitter.autoUpdate = true;
         }
 
-        this.mEmitter.updateSpawnPos(x,y);
+        this.mEmitter.updateSpawnPos(x, y);
         this.mEmitter.emitNow()
-        setTimeout(() =>{
+        setTimeout(() => {
             this.mEmitter.emit = false
-        },duration);
+        }, duration);
     }
 
     public override Update(delta: number): void {

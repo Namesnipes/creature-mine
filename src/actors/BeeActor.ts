@@ -1,39 +1,52 @@
 import { Actor } from './Actor';
 import { Scene } from '../scenes/Scene1';
-import {Container, ObservablePoint, Point, Texture} from 'pixi.js';
+import { Container, ObservablePoint, Point, Texture } from 'pixi.js';
 import { LerpComponent } from '../components/LerpComponent';
 
 export class BeeActor extends Actor {
     private mMover: LerpComponent = new LerpComponent(this);
     private middle: Boolean = true;
     private returnPoint: Point;
-    constructor(scene: Scene, parent?: Container){
+
+    constructor(scene: Scene, parent?: Container) {
         super(scene);
 
         // if there is a parent, add this actor to the children of the parent
-        if(typeof parent !== "undefined"){
+        if (typeof parent !== "undefined") {
             parent?.addChild(this)
         }
 
         this.anchor.set(0.5);
-        this.scale.set(0.1,0.1);
+        this.scale.set(0.1, 0.1);
         console.log(this)
         this.SetTexture(Texture.from('bee'));
     }
 
-    public setReturnPoint(x: number, y: number){
-        this.returnPoint = new Point(x,y)
+    /**
+     * Sets the point where the bee will return to after collecting honey.
+     *
+     * @param {number} x - The x-coordinate of the return point.
+     * @param {number} y - The y-coordinate of the return point.
+     */
+    public SetReturnPoint(x: number, y: number) {
+        this.returnPoint = new Point(x, y)
     }
 
-    public async collectHoney(){
+
+    /**
+     * Collects honey from a random flower and returns to their return point
+     *
+     * @return {Promise<void>} A promise that resolves when the bee has returned to its return point for 5 seconds.
+     */
+    public async CollectHoney() {
         return new Promise<void>(async (resolve, reject) => {
-            
+
             let flowers = this.mScene.getFlowers()
-            let flower = flowers[Math.floor(Math.random()*flowers.length)];
+            let flower = flowers[Math.floor(Math.random() * flowers.length)];
             await this.mMover.Move(flower.x, flower.y);
             await new Promise((resolve) => setTimeout(resolve, Math.random() * 5000));
 
-            await this.mMover.Move(this.returnPoint.x,this.returnPoint.y)
+            await this.mMover.Move(this.returnPoint.x, this.returnPoint.y)
             await new Promise((resolve) => setTimeout(resolve, Math.random() * 5000));
             resolve()
         })

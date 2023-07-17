@@ -26,7 +26,7 @@ export class ClickComponent extends Component {
         owner.on("pointertap", this.onClick, this);
     }
 
-    public onClick(e: FederatedMouseEvent):void{
+    private onClick(e: FederatedMouseEvent):void{
         this.mClickCallback.bind(this.mOwner)(e)
         this.mClickNum++;
     }

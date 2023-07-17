@@ -1,12 +1,12 @@
-export class DataHandler{
+export class DataHandler {
 
     private static DATA_KEYS: string[] = ["honey"]
-    
+
     private dataValues: any[] = []
 
-    constructor(){
+    constructor() {
         let tempData = localStorage.getItem("IdleGameData")
-        if(tempData != null && tempData.length > 1){
+        if (tempData != null && tempData.length > 1) {
             this.loadData(tempData)
         }
     }
@@ -16,27 +16,27 @@ export class DataHandler{
      *
      * @return {void}
      */
-    public saveData(): void{
-        let tempSaveString : string = ""
-        for(let i = 0; i < this.dataValues.length; i++){
+    public saveData(): void {
+        let tempSaveString: string = ""
+        for (let i = 0; i < this.dataValues.length; i++) {
             tempSaveString += this.dataValues[i] + "|"
         }
         console.log("Saving data:", tempSaveString)
         localStorage.setItem("IdleGameData", this.stringToBase64(tempSaveString))
     }
 
- 
+
     /**
      * Parses encoded data from local storage and loads it into the data array.
      *
      * @param {string} encodedData - The encoded data to be loaded.
      * @return {void}
      */
-    private loadData(encodedData: string): void{
+    private loadData(encodedData: string): void {
         let str = this.base64ToString(encodedData)
         let data: string[] = str.split("|")
-        for(let i = 0; i < data.length; i++){
-            if(data[i] != ""){
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] != "") {
                 this.dataValues.push(data[i])
                 console.log("Loading", data[i])
                 console.log(this.dataValues)
@@ -48,8 +48,8 @@ export class DataHandler{
         const bytes: Uint8Array = new TextEncoder().encode(str)
         const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
         return btoa(binString);
-      }
-    
+    }
+
     private base64ToString(base64: string): string {
         const binaryString = atob(base64);
         const bytes = new Uint8Array(binaryString.length);
@@ -66,9 +66,9 @@ export class DataHandler{
      * @param {string | number} data - The data to store.
      * @return {void}
      */
-    public setData(key: string, data: string | number) : void{
+    public setData(key: string, data: string | number): void {
         let dataIndex: number = DataHandler.DATA_KEYS.indexOf(key)
-        if(dataIndex !== -1){
+        if (dataIndex !== -1) {
             this.dataValues[dataIndex] = data
             this.saveData()
         }
@@ -80,9 +80,9 @@ export class DataHandler{
      * @param {string} key - The key of the data to be retrieved.
      * @return {string | number} The value associated with the given key, or null if the key does not exist.
      */
-    public getNumberData(key: string): number{
+    public getNumberData(key: string): number {
         let index: number = DataHandler.DATA_KEYS.indexOf(key)
-        if(index !== -1){
+        if (index !== -1) {
             return parseInt(this.dataValues[index])
         }
         return 0
