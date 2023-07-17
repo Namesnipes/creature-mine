@@ -114,7 +114,7 @@ export class Manager {
         console.log("Loading assets for bundles: ", newScene.assetBundles)
         await this.initializeAssetsPromise
         await Assets.loadBundle(newScene.assetBundles);
-        newScene.onAssetsLoaded()
+        newScene.OnAssetsLoaded()
         console.log("Done loading bundles")
 
         Manager.currentScene = newScene;

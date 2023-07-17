@@ -169,7 +169,7 @@ export class Scene extends Container implements IScene {
         })//
     }
 
-    onAssetsLoaded(): void {
+    OnAssetsLoaded(): void {
         
     }
     update(_framesPassed: number): void {

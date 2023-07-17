@@ -8,7 +8,7 @@ import { ParticleComponent } from '../components/ParticleComponent';
 import { BeeActor } from './BeeActor';
 
 export class HiveActor extends Actor {
-    public mClicker: ClickComponent = new ClickComponent(this, this.onClick, Manager.dataHandler.getNumberData("honey"));
+    public mClicker: ClickComponent = new ClickComponent(this, this.onClick, Manager.dataHandler.GetNumberData("honey"));
     private mEmitter: ParticleComponent = new ParticleComponent(this, particleSettings);
     
     constructor(scene: Scene) {
@@ -19,13 +19,13 @@ export class HiveActor extends Actor {
         // set position to top right of screen
         this.x = Manager.width - this.width;
         this.y = 0;
-        this.MakeBee()
+        this.MakeBee();
 
     }
     public onClick(e: FederatedMouseEvent): void {
-        this.AddHoney()
+        this.AddHoney();
         this.mEmitter.emitParticles(e.getLocalPosition(this).x, e.getLocalPosition(this).y);
-        this.MakeBee()
+        this.MakeBee();
     }
 
     /**
@@ -35,11 +35,11 @@ export class HiveActor extends Actor {
      */
     public MakeBee() {
         let bee: BeeActor = new BeeActor(this.mScene);
-        this.mScene.addChild(bee)
-        bee.zIndex = 100
-        bee.scale.set(0.05, 0.05)
-        bee.SetReturnPoint(this.x + this.width / 2, this.y + this.height / 2)
-        this.StartWorking(bee)
+        this.mScene.addChild(bee);
+        bee.zIndex = 100;
+        bee.scale.set(0.05, 0.05);
+        bee.SetReturnPoint(this.x + this.width / 2, this.y + this.height / 2);
+        this.StartWorking(bee);
     }
 
     /**
@@ -48,16 +48,16 @@ export class HiveActor extends Actor {
      * @param {BeeActor} b - The BeeActor to start working for.
      */
     public async StartWorking(b: BeeActor) {
-        await b.CollectHoney()
-        this.AddHoney()
-        this.StartWorking(b)
+        await b.CollectHoney();
+        this.AddHoney();
+        this.StartWorking(b);
     }
     /**
      * Adds 1 honey to the data store.
      *
      */
     public AddHoney() {
-        let currentHoney: number = Manager.dataHandler.getNumberData("honey")
-        Manager.dataHandler.setData("honey", (currentHoney + 1) as number)
+        let currentHoney: number = Manager.dataHandler.GetNumberData("honey");
+        Manager.dataHandler.SetData("honey", (currentHoney + 1) as number);
     }
 }
