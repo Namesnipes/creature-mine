@@ -2,7 +2,7 @@ import { Actor } from './Actor';
 import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
-import { Container, FederatedMouseEvent, ObservablePoint, Texture } from 'pixi.js';
+import { FederatedMouseEvent, Texture } from 'pixi.js';
 import * as particleSettings from "../cookemit.json";
 import { ParticleComponent } from '../components/ParticleComponent';
 import { BeeActor } from './BeeActor';
@@ -34,7 +34,7 @@ export class HiveActor extends Actor {
      * @returns {void} 
      */
     public MakeBee() {
-        let bee: BeeActor = new BeeActor(this.mScene);
+        const bee: BeeActor = new BeeActor(this.mScene);
         this.mScene.addChild(bee);
         bee.zIndex = 100;
         bee.scale.set(0.05, 0.05);
@@ -57,7 +57,7 @@ export class HiveActor extends Actor {
      *
      */
     public AddHoney() {
-        let currentHoney: number = Manager.dataHandler.GetNumberData("honey");
+        const currentHoney: number = Manager.dataHandler.GetNumberData("honey");
         Manager.dataHandler.SetData("honey", (currentHoney + 1) as number);
     }
 }

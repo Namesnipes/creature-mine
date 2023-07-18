@@ -3,8 +3,8 @@ import { Manager } from "../Manager";
 import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
 import { HiveActor } from '../actors/HiveActor';
-import { BeeActor } from '../actors/BeeActor';
 import { FlowerActor } from '../actors/FlowerActor';
+import { UIActor } from '../actors/UIActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
@@ -24,6 +24,7 @@ export class Scene extends Container implements IScene {
     mText = new Text('Bees: ', this.mTextStyle);
     mHive: HiveActor;
     mFlowerField: Array<FlowerActor> = [];
+    mUI: UIActor = new UIActor(this);
 
     constructor() {
         super(); // Mandatory! This calls the superclass constructor.
@@ -47,8 +48,12 @@ export class Scene extends Container implements IScene {
      */
     private CreateFlowerField(): void{
         for(let i = 0; i < 10; i++){
-            var flower = new FlowerActor(this);
-            flower.x = Math.random ()*Manager.width;
+            const flower = new FlowerActor(this);
+            //move flowers from ui (ugly solution change latr)
+            flower.x = Math.random ()*Manager.width + Manager.width/4;
+            if(flower.x > Manager.width){
+                flower.x = Manager.width - flower.width;
+            }
             flower.y = Manager.height/2 + Math.random ()*Manager.height/2;
             this.addChild(flower);
         }

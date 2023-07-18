@@ -32,14 +32,6 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ],
-        'func-style': [
-            'error',
-            'declaration',
-            {
-              // Define a custom regex pattern to enforce PascalCase for function names.
-              pattern: /^[A-Z][A-Za-z0-9]*$/,
-            },
         ]
     }
 };
