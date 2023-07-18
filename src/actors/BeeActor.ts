@@ -31,23 +31,15 @@ export class BeeActor extends Actor {
         this.mReturnPoint = new Point(x, y);
     }
 
-    /**
-     * Collects honey from a random flower and returns to their return point
-     *
-     * @return {Promise<void>} A promise that resolves when the bee has returned to its return point for 5 seconds.
-     */
-    public async CollectHoney() {
-        return new Promise<void>(async (resolve, reject) => {
+public async CollectHoney(): Promise<void> {
+  const flowers = this.mScene.GetFlowers();
+  const flower = flowers[Math.floor(Math.random() * flowers.length)];
 
-            const flowers = this.mScene.GetFlowers();
-            const flower = flowers[Math.floor(Math.random() * flowers.length)];
-            await this.mMover.Move(flower.x, flower.y);
-            await new Promise((resolve) => setTimeout(resolve, Math.random() * 5000));
+  await this.mMover.Move(flower.x, flower.y);
+  await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 
-            await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
-            await new Promise((resolve) => setTimeout(resolve, Math.random() * 5000));
-            resolve();
-        });
-    }
+  await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
+  await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+}
 
 }

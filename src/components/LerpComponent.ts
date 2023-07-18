@@ -18,23 +18,24 @@ export class LerpComponent extends Component {
     }
 
     //TODO: add speed as a parameter to lerp
+    //TODO: dont leak the promise resolver
     /**
      * Uses LERP to move the actor to the specified coordinates.
      *
-     * @param {number} x1 - The x-coordinate to move to.
-     * @param {number} y1 - The y-coordinate to move to.
+     * @param {number} x - The x-coordinate to move to.
+     * @param {number} y - The y-coordinate to move to.
      * @return {Promise<void>} A Promise that resolves when the object has finished moving.
      */
-    public Move(x1: number, y1: number): Promise<void> {
+    public Move(x: number, y: number): Promise<void> {
         return new Promise((resolve, reject) => {
             this.isLerping = true;
             this.originX = this.mOwner.x;
-            this.originY = this.mOwner.y
-            this.lerpToX = x1
-            this.lerpToY = y1
-            this.mLerpPercent = 0
-            this.lerpPromiseResolve = resolve
-        })
+            this.originY = this.mOwner.y;
+            this.lerpToX = x;
+            this.lerpToY = y;
+            this.mLerpPercent = 0;
+            this.lerpPromiseResolve = resolve;
+        });
     }
     public override Update(delta: number): void {
         if (this.isLerping) {
@@ -44,8 +45,8 @@ export class LerpComponent extends Component {
 
             this.mLerpPercent += delta / 1000; // percent is between 0 and 1
             if (this.mLerpPercent >= 1) {
-                this.lerpPromiseResolve()
-                this.isLerping = false
+                this.lerpPromiseResolve();
+                this.isLerping = false;
             }
         }
     }

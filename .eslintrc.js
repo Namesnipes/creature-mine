@@ -29,9 +29,18 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off",
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        '@typescript-eslint/naming-convention': [
+            'error',
+            {
+              selector: 'function',
+              format: ['PascalCase'],
+            },
+          ]
     }
 };

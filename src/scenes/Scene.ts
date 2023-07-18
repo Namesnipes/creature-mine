@@ -16,7 +16,7 @@ export class Scene extends Container implements IScene {
         this.screenWidth = Manager.width;
         this.screenHeight = Manager.height;
 
-        const CAT_URL: string = "gabe.jpg"
+        const CAT_URL: string = "gabe.jpg";
         const conty: Container = new Container();
         conty.x = 0;
         conty.y = 0;
@@ -31,7 +31,7 @@ export class Scene extends Container implements IScene {
         const clampy2: Sprite = Sprite.from(CAT_URL);
         clampy2.x = 100;
         clampy2.y = 200;
-        clampy2.angle = 0
+        clampy2.angle = 0;
         clampy2.anchor.set(0,0);
         conty.addChild(clampy2);
         
@@ -42,23 +42,23 @@ export class Scene extends Container implements IScene {
         conty.addChild(clampy3);
         
         
-        let chomping_down: boolean = false
-        let rainbow_switch: boolean = false
-        let hsl_color: number = 0
+        let chomping_down: boolean = false;
+        const rainbow_switch: boolean = false;
+        let hsl_color: number = 0;
         
 
         Ticker.shared.add((delta) => {
             if(clampy2.angle >= 45){
-                chomping_down = true
+                chomping_down = true;
             } else if(clampy2.angle <= 0) {
-                chomping_down = false
+                chomping_down = false;
             }
         
             clampy.angle += chomping_down ? 2.5 * delta : -2.5 * delta;
             clampy2.angle += chomping_down ? -2.5 * delta : 2.5 * delta;
         
-            if(hsl_color >= 255) hsl_color = 0
-            clampy3.tint = new Color('hsl(' + (rainbow_switch ? hsl_color += 2 : hsl_color -= 2) + ', 100%, 80%, 50%)')
+            if(hsl_color >= 255) hsl_color = 0;
+            clampy3.tint = new Color('hsl(' + (rainbow_switch ? hsl_color += 2 : hsl_color -= 2) + ', 100%, 80%, 50%)');
         });
 
         
@@ -88,7 +88,7 @@ export class Scene extends Container implements IScene {
             fontSize: 42
         });
         const texty: Text = new Text('私に気づいて先輩！', styly); // Text supports unicode!
-        texty.x = 150
+        texty.x = 150;
         
         this.addChild(texty);
         
@@ -97,7 +97,7 @@ export class Scene extends Container implements IScene {
         
         // Add it to the `.filters` array of any DisplayObject
         clampy.filters = [colormatrix];
-        colormatrix.negative(true)
+        colormatrix.negative(true);
 
         const clampyImages = [
             "Untitled1.png",
@@ -122,9 +122,9 @@ export class Scene extends Container implements IScene {
         }
 
         const animatedSprite = new AnimatedSprite(textureArray);
-        this.addChild(animatedSprite)
-        animatedSprite.animationSpeed = 0.25
-        animatedSprite.play()
+        this.addChild(animatedSprite);
+        animatedSprite.animationSpeed = 0.25;
+        animatedSprite.play();
 
 
 
@@ -133,7 +133,7 @@ export class Scene extends Container implements IScene {
             "button_up.png",
             "button_down.png",
             "button_up.png"
-        ]
+        ];
 
         const textureArray2 = [];
         
@@ -146,27 +146,27 @@ export class Scene extends Container implements IScene {
         const button = new AnimatedSprite(textureArray2);
         button.x = this.screenWidth / 2;
         button.y = this.screenHeight / 2;
-        this.addChild(button)
-        button.animationSpeed = 0.1
-        button.loop = false
+        this.addChild(button);
+        button.animationSpeed = 0.1;
+        button.loop = false;
         button.on("pointertap", this.onClicky, this);
-        button.interactive = true
+        button.interactive = true;
 
-        UserInput.initialize()
+        UserInput.initialize();
         Ticker.shared.add((delta) => {
             if(UserInput.state.get("KeyW")){
-                button.y = button.y - 5 * delta
+                button.y = button.y - 5 * delta;
             }
             if(UserInput.state.get("KeyA")){
-                button.x = button.x - 5 * delta
+                button.x = button.x - 5 * delta;
             }
             if(UserInput.state.get("KeyS")){
-                button.y = button.y + 5 * delta
+                button.y = button.y + 5 * delta;
             }
             if(UserInput.state.get("KeyD")){
-                button.x = button.x + 5 * delta
+                button.x = button.x + 5 * delta;
             }
-        })//
+        });//
     }
 
     OnAssetsLoaded(): void {
@@ -176,10 +176,10 @@ export class Scene extends Container implements IScene {
     }
 
     private onClicky(e: FederatedPointerEvent): void {
-        let targ = e.target
+        const targ = e.target;
         if(targ){
             (targ as AnimatedSprite).currentFrame = 0;
-            (targ as AnimatedSprite).play()
+            (targ as AnimatedSprite).play();
 
         }
     }

@@ -89,7 +89,7 @@ export class Scene extends Container implements IScene {
     update(_framesPassed: number): void {
         this.ProcessInput();
         this.UpdateActors();
-        this.mText.text = 'Honey: ' + Manager.dataHandler.GetNumberData("honey")
+        this.mText.text = 'Honey: ' + Manager.dataHandler.GetNumberData("honey");
         
     }
 }

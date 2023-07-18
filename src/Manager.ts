@@ -54,7 +54,7 @@ export class Manager {
         Manager.initializeAssetsPromise = Assets.init({ manifest: manifest });
 
         // Calls the update function every frame
-        Manager.app.ticker.add(Manager.update)
+        Manager.app.ticker.add(Manager.update);
 
         // Runs the resize function when screen size changes
         window.addEventListener("resize", Manager.resize);
@@ -63,7 +63,7 @@ export class Manager {
         Manager.resize();
 
         // create the map for storing key states
-        UserInput.initialize()
+        UserInput.initialize();
     }
 
 
@@ -111,19 +111,19 @@ export class Manager {
             Manager.currentScene.destroy();
         }
 
-        console.log("Loading assets for bundles: ", newScene.assetBundles)
-        await this.initializeAssetsPromise
+        console.log("Loading assets for bundles: ", newScene.assetBundles);
+        await this.initializeAssetsPromise;
         await Assets.loadBundle(newScene.assetBundles);
-        newScene.OnAssetsLoaded()
-        console.log("Done loading bundles")
+        newScene.OnAssetsLoaded();
+        console.log("Done loading bundles");
 
         Manager.currentScene = newScene;
 
         // Set the background for all scenes
-        const bg: Sprite = Sprite.from("field_bg")
-        bg.width = this.width
-        bg.height = this.height
-        Manager.app.stage.addChild(bg)
+        const bg: Sprite = Sprite.from("field_bg");
+        bg.width = this.width;
+        bg.height = this.height;
+        Manager.app.stage.addChild(bg);
 
         // Add the new scene
         Manager.app.stage.addChild(Manager.currentScene);

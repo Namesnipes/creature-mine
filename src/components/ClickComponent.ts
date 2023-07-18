@@ -9,25 +9,25 @@ export class ClickComponent extends Component {
     mClicked: boolean = false;
     mIsShrinking: boolean = true;
     mClickScale: number = 0.05;
-    mClickCallback: Function;
+    mClickCallback: (e: FederatedMouseEvent) => void;
 
     public mClickNum: number;
 
-    constructor(owner: Actor, clickCallback: Function, clickNum?: number) {
+    constructor(owner: Actor, clickCallback: (e: FederatedMouseEvent) => void, clickNum?: number) {
         super(owner);
         this.mOwner = owner;
-        this.mClickCallback = clickCallback
+        this.mClickCallback = clickCallback;
         if(clickNum){
-            this.mClickNum = clickNum
+            this.mClickNum = clickNum;
         } else {
-            this.mClickNum = 0
+            this.mClickNum = 0;
         }
         owner.interactive = true;
         owner.on("pointertap", this.onClick, this);
     }
 
     private onClick(e: FederatedMouseEvent):void{
-        this.mClickCallback.bind(this.mOwner)(e)
+        this.mClickCallback.bind(this.mOwner)(e);
         this.mClickNum++;
     }
 
