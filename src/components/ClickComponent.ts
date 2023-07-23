@@ -6,35 +6,35 @@ import * as particles from '@pixi/particle-emitter';
 import { Manager } from "../Manager";
 
 export class ClickComponent extends Component {
-    mClicked: boolean = false;
-    mIsShrinking: boolean = true;
-    mClickScale: number = 0.05;
-    mClickCallback: (e: FederatedMouseEvent) => void;
+	mClicked: boolean = false;
+	mIsShrinking: boolean = true;
+	mClickScale: number = 0.05;
+	mClickCallback: (e: FederatedMouseEvent) => void;
 
-    public mClickNum: number;
+	public mClickNum: number;
 
-    constructor(owner: Actor, clickCallback: (e: FederatedMouseEvent) => void, clickNum?: number) {
-        super(owner);
-        this.mOwner = owner;
-        this.mClickCallback = clickCallback;
-        if(clickNum){
-            this.mClickNum = clickNum;
-        } else {
-            this.mClickNum = 0;
-        }
-        owner.interactive = true;
-        owner.on("pointertap", this.onClick, this);
-    }
+	constructor(owner: Actor, clickCallback: (e: FederatedMouseEvent) => void, clickNum?: number) {
+		super(owner);
+		this.mOwner = owner;
+		this.mClickCallback = clickCallback;
+		if(clickNum){
+			this.mClickNum = clickNum;
+		} else {
+			this.mClickNum = 0;
+		}
+		owner.interactive = true;
+		owner.on("pointertap", this.onClick, this);
+	}
 
-    private onClick(e: FederatedMouseEvent):void{
-        this.mClickCallback.bind(this.mOwner)(e);
-        this.mClickNum++;
-    }
+	private onClick(e: FederatedMouseEvent):void{
+		this.mClickCallback.bind(this.mOwner)(e);
+		this.mClickNum++;
+	}
 
 
-    public override Update(delta: number): void {
-    }
+	public override Update(delta: number): void {
+	}
 
-    public override ProcessInput(): void {
-    }
+	public override ProcessInput(): void {
+	}
 }
