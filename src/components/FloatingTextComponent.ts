@@ -26,10 +26,5 @@ export class FloatingTextComponent extends Component{
 		// Apply changes to the text object
 		this.mText.alpha = this.alpha;
 	}
-  
-	isFinished() {
-		// Check if the floating text is finished (fully faded out)
-		return this.alpha <= 0;
-	}
 }
   

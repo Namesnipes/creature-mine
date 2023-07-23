@@ -1,9 +1,9 @@
 export class DataHandler {
 
 	private VALIDATORS: ((value: string | number) => string | number)[] 
-		= [this.NumberDataValidator];
+		= [this.NumberDataValidator,this.NumberDataValidator];
 	private static DATA_KEYS: string[] 
-		= ["honey"];
+		= ["honey","test"];
 	private dataValues: (string | number)[]
 		= [];
 
@@ -38,17 +38,17 @@ export class DataHandler {
      * @return {void}
      */
 	private LoadData(encodedData: string): void {
-		const str = this.Base64ToString(encodedData);
-		const data: string[] = str.split("|");
+		const decodedData = this.Base64ToString(encodedData);
+		const data: string[] = decodedData.split("|");
 		for (let i = 0; i < data.length; i++) {
-			if (data[i] != "") {
+			if (data[i] !== "") {
 				const validator = this.VALIDATORS[i];
 				let parsedData: number|string;
 				if (validator != null) {
 					parsedData = validator(data[i]);
 					this.dataValues.push(parsedData);
 				} else {
-					throw new Error("Data validator not found");
+					throw new Error("Data validator not found for key:" + DataHandler.DATA_KEYS[i]);
 				}
 			}
 		}
@@ -71,19 +71,26 @@ export class DataHandler {
 	}
 
 	/**
-     * Stores data for a given key.
-     *
-     * @param {string} key - The key to set the data for. The key name must be defined in DataHandler.DATA_KEYS before it can be used.
-     * @param {string | number} data - The data to store.
-     * @return {void}
-     */
+ * Stores data for a given key.
+ *
+ * @param {string} key - The key to set the data for.
+ *                      The key name must be defined in DataHandler.DATA_KEYS before it can be used.
+ * @param {string | number} data - The data to store.
+ * @return {void}
+ */
 	public SetData(key: string, data: string | number): void {
+		if (key.includes('|')) {
+			throw new Error('Data is not valid: ' + key);
+		}
+  
 		const dataIndex: number = DataHandler.DATA_KEYS.indexOf(key);
+  
 		if (dataIndex !== -1) {
 			this.dataValues[dataIndex] = data;
 			this.SaveData();
 		}
 	}
+  
 
 	/**
      * Retrieves data associated with the given key. The key name must be defined in DataHandler.DATA_KEYS before it can be used.
