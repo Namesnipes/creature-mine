@@ -5,7 +5,7 @@ export class DataHandler {
 	private static DATA_KEYS: string[] 
 		= ["honey","test"];
 	private dataValues: (string | number)[]
-		= [];
+		= [0, 0];
 
 	constructor() {
 		const tempData = localStorage.getItem("IdleGameData");
@@ -46,7 +46,7 @@ export class DataHandler {
 				let parsedData: number|string;
 				if (validator != null) {
 					parsedData = validator(data[i]);
-					this.dataValues.push(parsedData);
+					this.dataValues[i] = parsedData;
 				} else {
 					throw new Error("Data validator not found for key:" + DataHandler.DATA_KEYS[i]);
 				}
@@ -102,10 +102,11 @@ export class DataHandler {
 		const index: number = DataHandler.DATA_KEYS.indexOf(key);
 		const validator = this.VALIDATORS[index];
 		const data = this.dataValues[index];
-		if (index !== -1 && data != null) {
+		if (index !== -1) {
 			return validator(data);
+		} else {
+			throw new Error("Key does not exist: " + key);
 		}
-		return 0;
 	}
 
 	public NumberDataValidator(value: string | number): number {
