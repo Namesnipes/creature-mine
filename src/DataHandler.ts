@@ -101,8 +101,9 @@ export class DataHandler {
 	public GetData(key: string): number | string {
 		const index: number = DataHandler.DATA_KEYS.indexOf(key);
 		const validator = this.VALIDATORS[index];
-		if (index !== -1) {
-			return validator(this.dataValues[index]);
+		const data = this.dataValues[index];
+		if (index !== -1 && data != null) {
+			return validator(data);
 		}
 		return 0;
 	}
