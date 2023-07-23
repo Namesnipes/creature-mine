@@ -1,6 +1,6 @@
 import { Actor } from "../actors/Actor";
 import { Component } from "./Component";
-import { Point, ParticleContainer, Texture, FederatedMouseEvent, Container } from 'pixi.js';
+import { FederatedMouseEvent, Text, TextStyle} from 'pixi.js';
 import * as particleSettings from "../cookemit.json";
 import * as particles from '@pixi/particle-emitter';
 import { Manager } from "../Manager";
@@ -30,7 +30,6 @@ export class ClickComponent extends Component {
 		this.mClickCallback.bind(this.mOwner)(e);
 		this.mClickNum++;
 	}
-
 
 	public override Update(delta: number): void {
 	}
