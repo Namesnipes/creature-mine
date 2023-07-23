@@ -4,7 +4,7 @@ import {List, ButtonContainer } from '@pixi/ui';
 import { Graphics } from 'pixi.js';
 import { Manager } from '../Manager';
 export class UIActor extends Actor {
-
+    public UIWidth = Manager.width/4;
     constructor(scene: Scene) {
         super(scene);
         this.MakeUI();
@@ -18,7 +18,7 @@ export class UIActor extends Actor {
     private MakeUI(): void{
         const list = new List({
             children: [
-                new Graphics().beginFill(0xfccf03).drawRect(0, 0, Manager.width / 4, Manager.height),
+                new Graphics().beginFill(0xfccf03).drawRect(0, 0, this.UIWidth, Manager.height),
                 new ButtonContainer(
                     new Graphics()
                         .beginFill(0x03dffc)

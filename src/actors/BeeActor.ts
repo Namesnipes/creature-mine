@@ -31,15 +31,18 @@ export class BeeActor extends Actor {
         this.mReturnPoint = new Point(x, y);
     }
 
-public async CollectHoney(): Promise<void> {
-  const flowers = this.mScene.GetFlowers();
-  const flower = flowers[Math.floor(Math.random() * flowers.length)];
+    public async CollectHoney(): Promise<void> {
+        const flowers = this.mScene.GetFlowers();
+        const flower = flowers[Math.floor(Math.random() * flowers.length)];
+        if (flower) {
+            await this.mMover.Move(flower.x, flower.y);
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 
-  await this.mMover.Move(flower.x, flower.y);
-  await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
-
-  await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
-  await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
-}
+            await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+        } else {
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+        }
+    }
 
 }

@@ -30,7 +30,11 @@ export const manifest:ResolverManifest = {
                 "name":"flower",
                 "srcs": "./flower.png"
             },
+            {
+                "name":"mound",
+                "srcs": "./mound.png"
+            },
             ]
         }
     ]
-}
+};

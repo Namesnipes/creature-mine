@@ -5,10 +5,13 @@ import { Actor } from '../actors/Actor';
 import { HiveActor } from '../actors/HiveActor';
 import { FlowerActor } from '../actors/FlowerActor';
 import { UIActor } from '../actors/UIActor';
+import { MoundActor } from '../actors/MoundActor';
 
 export class Scene extends Container implements IScene {
     private readonly screenWidth: number;
     private readonly screenHeight: number;
+    private readonly gameScreenWidth: number;
+    private readonly gameScreenHeight: number;
     assetBundles:string[] = ["MainScreen"];
     mActors : Array<Actor> = [];
     mTextStyle = new TextStyle({
@@ -31,6 +34,8 @@ export class Scene extends Container implements IScene {
         this.screenWidth = Manager.width;
         this.screenHeight = Manager.height;
         this.sortableChildren = true; // Lets zindex work
+        this.gameScreenWidth = Manager.width - this.mUI.UIWidth;
+        this.gameScreenHeight = Manager.height;
         
     }
 
@@ -48,13 +53,13 @@ export class Scene extends Container implements IScene {
      */
     private CreateFlowerField(): void{
         for(let i = 0; i < 10; i++){
-            const flower = new FlowerActor(this);
+            const flower = new MoundActor(this);
             //move flowers from ui (ugly solution change latr)
-            flower.x = Math.random ()*Manager.width + Manager.width/4;
+            flower.x = (this.screenWidth-this.gameScreenWidth) + Math.random ()*this.gameScreenWidth;
             if(flower.x > Manager.width){
                 flower.x = Manager.width - flower.width;
             }
-            flower.y = Manager.height/2 + Math.random ()*Manager.height/2;
+            flower.y = this.gameScreenHeight/2 + Math.random ()*this.gameScreenHeight/2;
             this.addChild(flower);
         }
     }
