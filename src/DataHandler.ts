@@ -17,17 +17,49 @@ export class DataHandler {
 	}
 
 	/**
+ * Stores data for a given key.
+ *
+ * @param {string} key - The key to set the data for.
+ *                      The key name must be defined in DataHandler.DATA_KEYS before it can be used.
+ * @param {string | number} data - The data to store.
+ * @return {void}
+ */
+	public SetData(key: string, data: string | number): void {
+		const index: number = this.getDataIndex(key);
+		if (typeof data === 'string' && data.includes('|')) {
+			throw new Error('Data cannot contain the "|" character');
+		}
+		this.dataValues[index] = data;
+		this.SaveData();
+	}
+  
+
+	/**
+     * Retrieves data associated with the given key. The key name must be defined in DataHandler.DATA_KEYS before it can be used.
+     *
+     * @param {string} key - The key of the data to be retrieved.
+     * @return {string | number} The value associated with the given key, or null if the key does not exist.
+     */
+	public GetData(key: string): number | string {
+		const index: number = this.getDataIndex(key);
+		const validator = this.VALIDATORS[index];
+		const data = this.dataValues[index];
+		return validator(data);
+	}
+
+	/**
      * Saves all game data by storing it in the browsers local storage.
      *
      * @return {void}
      */
-	public SaveData(): void {
+	private SaveData(): void {
 		let tempSaveString: string = "";
 		for (let i = 0; i < this.dataValues.length; i++) {
 			tempSaveString += <string>this.dataValues[i] + "|";
 		}
 		console.log("Saving data:", tempSaveString);
-		localStorage.setItem("IdleGameData", this.StringToBase64(tempSaveString));
+		const encodedData = this.StringToBase64(tempSaveString);
+		localStorage.setItem("IdleGameData", encodedData);
 	}
 
 
@@ -40,10 +72,12 @@ export class DataHandler {
 	private LoadData(encodedData: string): void {
 		const decodedData = this.Base64ToString(encodedData);
 		const data: string[] = decodedData.split("|");
+
 		for (let i = 0; i < data.length; i++) {
 			if (data[i] !== "") {
 				const validator = this.VALIDATORS[i];
 				let parsedData: number|string;
+
 				if (validator != null) {
 					parsedData = validator(data[i]);
 					this.dataValues[i] = parsedData;
@@ -70,46 +104,15 @@ export class DataHandler {
 		return new TextDecoder().decode(bytes);
 	}
 
-	/**
- * Stores data for a given key.
- *
- * @param {string} key - The key to set the data for.
- *                      The key name must be defined in DataHandler.DATA_KEYS before it can be used.
- * @param {string | number} data - The data to store.
- * @return {void}
- */
-	public SetData(key: string, data: string | number): void {
-		if (key.includes('|')) {
-			throw new Error('Data is not valid: ' + key);
-		}
-  
+	private getDataIndex(key: string): number {
 		const dataIndex: number = DataHandler.DATA_KEYS.indexOf(key);
-  
-		if (dataIndex !== -1) {
-			this.dataValues[dataIndex] = data;
-			this.SaveData();
+		if (dataIndex === -1) {
+			throw new Error('Key does not exist: ' + key);
 		}
-	}
-  
-
-	/**
-     * Retrieves data associated with the given key. The key name must be defined in DataHandler.DATA_KEYS before it can be used.
-     *
-     * @param {string} key - The key of the data to be retrieved.
-     * @return {string | number} The value associated with the given key, or null if the key does not exist.
-     */
-	public GetData(key: string): number | string {
-		const index: number = DataHandler.DATA_KEYS.indexOf(key);
-		const validator = this.VALIDATORS[index];
-		const data = this.dataValues[index];
-		if (index !== -1) {
-			return validator(data);
-		} else {
-			throw new Error("Key does not exist: " + key);
-		}
+		return dataIndex;
 	}
 
-	public NumberDataValidator(value: string | number): number {
+	private NumberDataValidator(value: string | number): number {
 		const data: number = Number(value);
 		if(!Number.isNaN(data)) {
 			return data;
