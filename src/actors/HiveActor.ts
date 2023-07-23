@@ -2,15 +2,25 @@ import { Actor } from './Actor';
 import { ClickComponent } from '../components/ClickComponent';
 import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
-import { FederatedMouseEvent, Texture } from 'pixi.js';
+import { FederatedMouseEvent, TextStyle, Texture } from 'pixi.js';
 import * as particleSettings from "../cookemit.json";
 import { ParticleComponent } from '../components/ParticleComponent';
+import { FloatingTextComponent } from '../components/FloatingTextComponent';
 import { BeeActor } from './BeeActor';
 
 export class HiveActor extends Actor {
 	public mClicker: ClickComponent = new ClickComponent(this, this.onClick, <number>Manager.dataHandler.GetData("honey"));
 	private mEmitter: ParticleComponent = new ParticleComponent(this, particleSettings);
-    
+	private floatingTextStyle: TextStyle = new TextStyle({
+		fontFamily: "Arial",
+		fontSize: 60,
+		fill: "yellow",
+		dropShadow: true,
+		dropShadowColor: "black",
+		dropShadowBlur: 4,
+		dropShadowDistance: 2,
+	});
+
 	constructor(scene: Scene) {
 		super(scene);
 		this.SetTexture(Texture.from('hive'));
@@ -20,12 +30,12 @@ export class HiveActor extends Actor {
 		this.x = Manager.width - this.width;
 		this.y = 0;
 		this.MakeBee();
-
 	}
 	public onClick(e: FederatedMouseEvent): void {
 		this.AddHoney();
 		this.mEmitter.emitParticles(e.getLocalPosition(this).x, e.getLocalPosition(this).y);
 		this.MakeBee();
+		new FloatingTextComponent(this,"+1 honey", e.getLocalPosition(this).x, e.getLocalPosition(this).y, this.floatingTextStyle);
 	}
 
 	/**

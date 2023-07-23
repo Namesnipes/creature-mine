@@ -11,6 +11,8 @@ export class DataHandler {
 		const tempData = localStorage.getItem("IdleGameData");
 		if (tempData != null && tempData.length > 1) {
 			this.LoadData(tempData);
+		} else {
+			console.log("User has no previous data!");
 		}
 	}
 
@@ -22,7 +24,7 @@ export class DataHandler {
 	public SaveData(): void {
 		let tempSaveString: string = "";
 		for (let i = 0; i < this.dataValues.length; i++) {
-			tempSaveString += this.dataValues[i] + "|";
+			tempSaveString += <string>this.dataValues[i] + "|";
 		}
 		console.log("Saving data:", tempSaveString);
 		localStorage.setItem("IdleGameData", this.StringToBase64(tempSaveString));
