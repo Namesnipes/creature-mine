@@ -48,10 +48,9 @@ export class DataHandler {
 				} else {
 					throw new Error("Data validator not found");
 				}
-				console.log("Loading", data[i]);
-				console.log(this.dataValues);
 			}
 		}
+		console.log("All data for this session: ",this.dataValues);
 	}
 
 	private StringToBase64(str: string): string {
@@ -104,7 +103,7 @@ export class DataHandler {
 		if(!Number.isNaN(data)) {
 			return data;
 		} else {
-			throw new Error("Data is not a number");
+			throw new Error("Data is not a number: " + value);
 		}
 	}
 }

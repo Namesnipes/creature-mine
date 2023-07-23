@@ -31,7 +31,7 @@ export class BeeActor extends Actor {
 		this.mReturnPoint = new Point(x, y);
 	}
 
-	public async CollectHoney(): Promise<void> {
+	public async CollectHoney(): Promise<boolean> {
 		const flowers = this.mScene.GetFlowers();
 		const flower = flowers[Math.floor(Math.random() * flowers.length)];
 		if (flower) {
@@ -40,8 +40,10 @@ export class BeeActor extends Actor {
 
 			await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
 			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+			return true;
 		} else {
 			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+			return false;
 		}
 	}
 

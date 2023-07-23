@@ -48,8 +48,10 @@ export class HiveActor extends Actor {
      * @param {BeeActor} b - The BeeActor to start working for.
      */
 	public async StartWorking(b: BeeActor) {
-		await b.CollectHoney();
-		this.AddHoney();
+		const collectedHoney: boolean = await b.CollectHoney();
+		if(collectedHoney){
+			this.AddHoney();
+		}
 		this.StartWorking(b);
 	}
 	/**
