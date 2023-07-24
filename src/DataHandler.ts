@@ -25,11 +25,14 @@ export class DataHandler {
  * @return {void}
  */
 	public SetData(key: string, data: string | number): void {
-		const index: number = this.getDataIndex(key);
+
 		if (typeof data === 'string' && data.includes('|')) {
 			throw new Error('Data cannot contain the "|" character');
 		}
-		this.dataValues[index] = data;
+
+		const index: number = this.getDataIndex(key);
+		const validator = this.VALIDATORS[index];
+		this.dataValues[index] = validator(data);
 		this.SaveData();
 	}
   
