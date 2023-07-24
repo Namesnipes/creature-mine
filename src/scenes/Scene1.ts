@@ -55,8 +55,15 @@ export class Scene extends Container implements IScene {
 		for(let i = 0; i < 3; i++){
 			for(let j = 0; j< 4; j++){
 				const mound = new MoundActor(this);
-				const startingCoordX = this.screenWidth - this.gameScreenWidth + mound.width/2 + ((this.gameScreenWidth-mound.width)/3) * j;
-				const startingCoordY = (this.screenHeight - this.gameScreenHeight) + Manager.height/2 + (Manager.height/2)/3 * i;
+
+				const startX = this.screenWidth - this.gameScreenWidth + mound.width/2;
+				const gapX = ((this.gameScreenWidth-mound.width)/3);
+				const startingCoordX = startX + gapX * j;
+
+				const startY = (this.screenHeight - this.gameScreenHeight) + Manager.height/2;
+				const gapY = (Manager.height/2-mound.height/2)/2;
+				const startingCoordY = startY + gapY * i;
+
 				mound.x = startingCoordX;
 				mound.y = startingCoordY;
 				this.addChild(mound);
