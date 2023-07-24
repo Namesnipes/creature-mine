@@ -15,7 +15,6 @@ export class MoundActor extends Actor {
 		this.y = Manager.height;
 		this.scale.set(0.1, 0.1);
 		this.SetTexture(Texture.from('mound'));
-		//add flower to flower array in scene on construction
 	}
 
 	public onClick(e: FederatedMouseEvent): void {

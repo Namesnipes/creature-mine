@@ -52,15 +52,15 @@ export class Scene extends Container implements IScene {
      * @return {void}
      */
 	private CreateFlowerField(): void{
-		for(let i = 0; i < 10; i++){
-			const flower = new MoundActor(this);
-			//move flowers from ui (ugly solution change latr)
-			flower.x = (this.screenWidth-this.gameScreenWidth) + Math.random ()*this.gameScreenWidth;
-			if(flower.x > Manager.width){
-				flower.x = Manager.width - flower.width;
+		for(let i = 0; i < 3; i++){
+			for(let j = 0; j< 4; j++){
+				const mound = new MoundActor(this);
+				const startingCoordX = this.screenWidth - this.gameScreenWidth + mound.width/2 + ((this.gameScreenWidth-mound.width)/3) * j;
+				const startingCoordY = (this.screenHeight - this.gameScreenHeight) + Manager.height/2 + (Manager.height/2)/3 * i;
+				mound.x = startingCoordX;
+				mound.y = startingCoordY;
+				this.addChild(mound);
 			}
-			flower.y = this.gameScreenHeight/2 + Math.random ()*this.gameScreenHeight/2;
-			this.addChild(flower);
 		}
 	}
 	public AddActor(actor: Actor): void{
