@@ -52,16 +52,18 @@ export class Scene extends Container implements IScene {
      * @return {void}
      */
 	private CreateFlowerField(): void{
-		for(let i = 0; i < 3; i++){
-			for(let j = 0; j< 4; j++){
+		const ROWS = 7;
+		const COLS = 7;
+		for(let i = 0; i < ROWS; i++){
+			for(let j = 0; j< COLS; j++){
 				const mound = new MoundActor(this);
 
 				const startX = this.screenWidth - this.gameScreenWidth + mound.width/2;
-				const gapX = ((this.gameScreenWidth-mound.width)/3);
+				const gapX = ((this.gameScreenWidth-mound.width)/(ROWS-1));
 				const startingCoordX = startX + gapX * j;
 
 				const startY = (this.screenHeight - this.gameScreenHeight) + Manager.height/2;
-				const gapY = (Manager.height/2-mound.height/2)/2;
+				const gapY = (Manager.height/2-mound.height/2)/(COLS-1);
 				const startingCoordY = startY + gapY * i;
 
 				mound.x = startingCoordX;

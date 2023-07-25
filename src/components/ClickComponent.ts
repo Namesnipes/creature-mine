@@ -27,6 +27,7 @@ export class ClickComponent extends Component {
 	}
 
 	private onClick(e: FederatedMouseEvent):void{
+		const sprite = this.mOwner;
 		this.mClickCallback.bind(this.mOwner)(e);
 		this.mClickNum++;
 	}
