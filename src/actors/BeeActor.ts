@@ -15,8 +15,6 @@ export class BeeActor extends Actor {
 		if (typeof parent !== "undefined") {
 			parent?.addChild(this);
 		}
-
-		this.anchor.set(0.5);
 		this.scale.set(0.1, 0.1);
 		this.SetTexture(Texture.from('bee'));
 	}
