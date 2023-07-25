@@ -23,6 +23,7 @@ export class ClickComponent extends Component {
 			this.mClickNum = 0;
 		}
 		owner.interactive = true;
+		owner.cursor = "pointer";
 		owner.on("pointertap", this.onClick, this);
 	}
 
