@@ -12,6 +12,8 @@ export class Scene extends Container implements IScene {
 	private readonly screenHeight: number;
 	private readonly gameScreenWidth: number;
 	private readonly gameScreenHeight: number;
+	//number of frames for fps counter to update
+	private readonly FPSFRAMES = 15;
 	assetBundles:string[] = ["MainScreen"];
 	mActors : Array<Actor> = [];
 	mTextStyle = new TextStyle({
@@ -24,7 +26,16 @@ export class Scene extends Container implements IScene {
 		miterLimit: 0,
 		strokeThickness: 6
 	});
-	mText = new Text('Bees: ', this.mTextStyle);
+	mText: Text = new Text('Bees: ', this.mTextStyle);
+	mFPSTextStyle = new TextStyle({
+		fill: "#45ff5d",
+		fontSize: 41,
+		fontVariant: "small-caps",
+		miterLimit: 0,
+		strokeThickness: 3
+	});
+	mFPSCount: Text = new Text('FPS: ', this.mFPSTextStyle);
+	mFPSFrameCount: number = 0;
 	mHive: HiveActor;
 	mFlowerField: Array<FlowerActor> = [];
 	mUI: UIActor = new UIActor(this);
@@ -36,6 +47,7 @@ export class Scene extends Container implements IScene {
 		this.sortableChildren = true; // Lets zindex work
 		this.gameScreenWidth = Manager.width - this.mUI.UIWidth;
 		this.gameScreenHeight = Manager.height;
+		this.mFPSCount.position.set(this.gameScreenWidth + this.mUI.UIWidth/2, this.screenHeight-this.mFPSCount.height);
         
 	}
 
@@ -44,6 +56,7 @@ export class Scene extends Container implements IScene {
 		this.mHive = new HiveActor(this);
 		this.addChild(this.mHive);
 		this.addChild(this.mText);
+		this.addChild(this.mFPSCount);
 	}
 
 	/**
@@ -104,6 +117,12 @@ export class Scene extends Container implements IScene {
 		this.ProcessInput();
 		this.UpdateActors();
 		this.mText.text = 'Honey: ' + Manager.dataHandler.GetData("honey");
+		//update fps counter
+		this.mFPSFrameCount++;
+		if(this.mFPSFrameCount == this.FPSFRAMES){
+			this.mFPSCount.text = 'FPS: ' + Math.floor(Ticker.shared.FPS);
+			this.mFPSFrameCount = 0;
+		}
         
 	}
 }
