@@ -34,6 +34,18 @@ export const manifest:ResolverManifest = {
             		"name":"mound",
             		"srcs": "./mound.png"
             	},
+				{
+            		"name":"jar",
+            		"srcs": "./jar.png"
+            	},
+				{
+            		"name":"honey",
+            		"srcs": "./honey.png"
+            	},
+				{
+            		"name":"wood",
+            		"srcs": "./wood.jpg"
+            	},
             ]
 		}
 	]

@@ -3,7 +3,7 @@ export class DataHandler {
 	private VALIDATORS: ((value: string | number) => string | number)[] 
 		= [this.NumberDataValidator,this.NumberDataValidator];
 	private static DATA_KEYS: string[] 
-		= ["honey","test"];
+		= ["honey","jars"];
 	private dataValues: (string | number)[]
 		= [0, 0];
 

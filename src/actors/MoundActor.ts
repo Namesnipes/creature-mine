@@ -18,6 +18,7 @@ export class MoundActor extends Actor {
 	}
 
 	public onClick(e: FederatedMouseEvent): void {
+		//TODO: CHECK FLOWER OVERLAP ON MOUNDS WITH A FLOWER ALREADY
 		console.log("clicked mound");
 		this.mFlower = new FlowerActor(this.mScene);
 		this.mFlower.x = this.x+this.width/5;

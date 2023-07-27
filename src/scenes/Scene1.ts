@@ -12,6 +12,7 @@ export class Scene extends Container implements IScene {
 	private readonly screenHeight: number;
 	private readonly gameScreenWidth: number;
 	private readonly gameScreenHeight: number;
+	private readonly UIWIDTH: number;
 	//number of frames for fps counter to update
 	private readonly FPSFRAMES = 15;
 	assetBundles:string[] = ["MainScreen"];
@@ -38,22 +39,24 @@ export class Scene extends Container implements IScene {
 	mFPSFrameCount: number = 0;
 	mHive: HiveActor;
 	mFlowerField: Array<FlowerActor> = [];
-	mUI: UIActor = new UIActor(this);
+	mUI: UIActor;
 
 	constructor() {
 		super(); // Mandatory! This calls the superclass constructor.
 		this.screenWidth = Manager.width;
 		this.screenHeight = Manager.height;
+		this.UIWIDTH = Manager.width/4;
 		this.sortableChildren = true; // Lets zindex work
-		this.gameScreenWidth = Manager.width - this.mUI.UIWidth;
+		this.gameScreenWidth = Manager.width - this.UIWIDTH;
 		this.gameScreenHeight = Manager.height;
-		this.mFPSCount.position.set(this.gameScreenWidth + this.mUI.UIWidth/2, this.screenHeight-this.mFPSCount.height);
+		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);
         
 	}
 
 	public OnAssetsLoaded(): void {
 		this.CreateFlowerField();
 		this.mHive = new HiveActor(this);
+		this.mUI = new UIActor(this, this.UIWIDTH);
 		this.addChild(this.mHive);
 		this.addChild(this.mText);
 		this.addChild(this.mFPSCount);

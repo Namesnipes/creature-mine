@@ -67,7 +67,7 @@ export class Actor extends Sprite {
 		}
 	}
 	//update this actor
-	private OnUpdate(delta: number) {
+	protected OnUpdate(delta: number) {
 	}
 	/**
      * Calls process input on each component
@@ -82,7 +82,7 @@ export class Actor extends Sprite {
 		}
 	}
 	//on process input updates actor based on input
-	private OnProcessInput() {
+	protected OnProcessInput() {
 
 	}
 	/**
