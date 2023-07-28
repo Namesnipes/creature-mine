@@ -37,6 +37,12 @@ export class UIActor extends Actor {
 		honeyJar.anchor.set(0.5);
 		uiContainer.addChild(honeyJar);
 		honeyJar.position.set(this.UIWidth/2, Manager.height/4);
+		//shelf
+		const woodShelf = Sprite.from("wood_shelf");
+		woodShelf.anchor.set(0.5);
+		woodShelf.scale.set(0.9, 1);
+		uiContainer.addChild(woodShelf);
+		woodShelf.position.set(this.UIWidth/2, Manager.height/4 + Texture.from("jar").height/2 + woodShelf.height/2);
 		//honey mask
 		const honeyContainer = new Container();
 		const honeyMaskGraphics = new Graphics();

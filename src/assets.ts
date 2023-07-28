@@ -46,6 +46,10 @@ export const manifest:ResolverManifest = {
             		"name":"wood",
             		"srcs": "./wood.jpg"
             	},
+				{
+            		"name":"wood_shelf",
+            		"srcs": "./woodenShelf.png"
+            	},
             ]
 		}
 	]
