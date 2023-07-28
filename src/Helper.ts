@@ -1,6 +1,6 @@
 export abstract class Helper{
 
-    /**
+	/**
      * Performs linear interpolation between two values.
      *
      * @param {number} start - The starting value.
@@ -9,11 +9,23 @@ export abstract class Helper{
      *                       The value should be between 0 (0%) and 1 (100%), inclusive.
      * @return {number} The value between the start and stop values according to the given percentage.
      */
-    static Lerp(start: number, stop: number, amt: number) {
-        if (amt > 1)
-            amt = 1;
-        else if (amt < 0)
-            amt = 0;
-        return start + (stop - start) * amt;
-    }
+	static Lerp(start: number, stop: number, amt: number) {
+		if (amt > 1)
+			amt = 1;
+		else if (amt < 0)
+			amt = 0;
+		return start + (stop - start) * amt;
+	}
+
+	/**
+	 * Generate a random integer between the specified minimum and maximum values.
+	 *
+	 * @param {number} min - The minimum value (inclusive).
+	 * @param {number} max - The maximum value (inclusive).
+	 * @return {number} - The randomly generated integer.
+	 */
+	static randomIntFromInterval(min: number, max: number) { // min and max included 
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+      
 }

@@ -2,6 +2,7 @@ import { Actor } from './Actor';
 import { Scene } from '../scenes/Scene1';
 import { Container, Point, Texture } from 'pixi.js';
 import { LerpComponent } from '../components/LerpComponent';
+import { Helper } from '../Helper';
 
 export class BeeActor extends Actor {
 	private mMover: LerpComponent = new LerpComponent(this);
@@ -32,17 +33,23 @@ export class BeeActor extends Actor {
 	public async CollectHoney(): Promise<boolean> {
 		const flowers = this.mScene.GetFlowers();
 		const flower = flowers[Math.floor(Math.random() * flowers.length)];
+
 		if (flower) {
-			await this.mMover.Move(flower.x, flower.y);
+			const randx = Helper.randomIntFromInterval(-25,25);
+			const randy = Helper.randomIntFromInterval(-25,25);
+			const randx2 = Helper.randomIntFromInterval(-100,100);
+			const randy2 = Helper.randomIntFromInterval(-100,100);
+			await this.mMover.Move(flower.x + 60 + randx, flower.y + 60 + randy);
 			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 
-			await this.mMover.Move(this.mReturnPoint.x, this.mReturnPoint.y);
+			await this.mMover.Move(this.mReturnPoint.x + randx2, this.mReturnPoint.y + randy2);
 			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 			return true;
 		} else {
 			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 			return false;
 		}
+
 	}
 
 }
