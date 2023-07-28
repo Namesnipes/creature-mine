@@ -17,17 +17,6 @@ export class Scene extends Container implements IScene {
 	private readonly FPSFRAMES = 15;
 	assetBundles:string[] = ["MainScreen"];
 	mActors : Array<Actor> = [];
-	mTextStyle = new TextStyle({
-		fill: "#ffffff",
-		fontFamily: "Georgia",
-		fontSize: 70,
-		fontWeight: "bold",
-		letterSpacing: 2,
-		lineJoin: "round",
-		miterLimit: 0,
-		strokeThickness: 6
-	});
-	mText: Text = new Text('Bees: ', this.mTextStyle);
 	mFPSTextStyle = new TextStyle({
 		fill: "#45ff5d",
 		fontSize: 41,
@@ -49,8 +38,7 @@ export class Scene extends Container implements IScene {
 		this.sortableChildren = true; // Lets zindex work
 		this.gameScreenWidth = Manager.width - this.UIWIDTH;
 		this.gameScreenHeight = Manager.height;
-		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);
-        
+		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);     
 	}
 
 	public OnAssetsLoaded(): void {
@@ -58,7 +46,6 @@ export class Scene extends Container implements IScene {
 		this.mHive = new HiveActor(this);
 		this.mUI = new UIActor(this, this.UIWIDTH);
 		this.addChild(this.mHive);
-		this.addChild(this.mText);
 		this.addChild(this.mFPSCount);
 	}
 
@@ -119,7 +106,6 @@ export class Scene extends Container implements IScene {
 	update(_framesPassed: number): void {
 		this.ProcessInput();
 		this.UpdateActors();
-		this.mText.text = 'Honey: ' + Manager.dataHandler.GetData("honey");
 		//update fps counter
 		this.mFPSFrameCount++;
 		if(this.mFPSFrameCount == this.FPSFRAMES){

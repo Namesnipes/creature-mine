@@ -1,13 +1,22 @@
 import { Actor } from './Actor';
 import { Scene } from '../scenes/Scene1';
-import { Graphics, Container, Sprite, Texture, ObservablePoint } from 'pixi.js';
+import { Graphics, Container, Sprite, Texture, Text, TextStyle } from 'pixi.js';
 import { Manager } from '../Manager';
 export class UIActor extends Actor {
 	private UIWidth: number;
 	mHoneyEmptyLevel: number = Texture.from('honey').height + Texture.from('honey').height/2 + 10;
 	mHoneyFullLevel: number = Texture.from('honey').height - Texture.from('honey').height/2 + 8;
-	private readonly MAXHONEY = 250;
+	private readonly MAXHONEY = 300;
 	mHoneyMask: Graphics;
+	mTextStyle = new TextStyle({
+		fontFamily: "Comic Sans MS",
+		fontSize: 32,
+		miterLimit: 0,
+		stroke: "#ffd219",
+		strokeThickness: 3
+	});
+	mJarsText = new Text('Jars:', this.mTextStyle);
+	mHoneyCount = new Text('Honey:', this.mTextStyle);
 	constructor(scene: Scene, width: number) {
 		super(scene);
 		this.UIWidth = width;
@@ -62,6 +71,15 @@ export class UIActor extends Actor {
 		honeyContainer.addChild(honey);
 
 		uiContainer.addChild(honeyContainer);
+
+		//text
+		this.mJarsText.anchor.set(0.5);
+		this.mJarsText.position.set(this.UIWidth/2, Manager.height/2);
+		uiContainer.addChild(this.mJarsText);
+		this.mHoneyCount.anchor.set(0.5);
+		this.mHoneyCount.position.set(this.UIWidth/2, Manager.height/4);
+		uiContainer.addChild(this.mHoneyCount);
+
 		this.mScene.addChild(uiContainer);
 	}
 	override OnUpdate(): void {
@@ -70,12 +88,15 @@ export class UIActor extends Actor {
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
 		const currentJars: number = <number>Manager.dataHandler.GetData("jars");
 		let honeyLevel = currentHoney/this.mHoneyFullLevel;
-		this.mHoneyMask.y = this.mHoneyFullLevel * (honeyLevel*-1);
+		this.mHoneyMask.y = (this.mHoneyFullLevel * (honeyLevel*-1))/1.18;
 		if(currentHoney >= this.MAXHONEY){
 			Manager.dataHandler.SetData("jars", (currentJars + 1) as number);
 			Manager.dataHandler.SetData("honey", (0) as number);
 			this.mHoneyMask.y = this.mHoneyEmptyLevel;
 		}
+		//set text
+		this.mHoneyCount.text = 'Honey: ' + currentHoney;
+		this.mJarsText.text = 'Jars: ' + currentJars;
 
 
 		
