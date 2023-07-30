@@ -7,6 +7,11 @@ import { Helper } from '../Helper';
 export class BeeActor extends Actor {
 	private mMover: LerpComponent = new LerpComponent(this);
 	private mReturnPoint: Point;
+	private readonly MaxPollenCollectTime = 5000;
+	private readonly MinPollenCollectTime = 2000;
+	private readonly MaxPollenDepositTime = 5000;
+	private readonly MinPollenDepositTime = 2000;
+	private readonly RetryTime = 5000;
 
 	constructor(scene: Scene) {
 		super(scene);
@@ -34,13 +39,13 @@ export class BeeActor extends Actor {
 			const randx2 = Helper.randomIntFromInterval(-100,100);
 			const randy2 = Helper.randomIntFromInterval(-100,100);
 			await this.mMover.Move(flower.x + 60 + randx, flower.y + 60 + randy);
-			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+			await new Promise(resolve => setTimeout(resolve, Helper.randomIntFromInterval(this.MinPollenCollectTime, this.MaxPollenCollectTime)));
 
 			await this.mMover.Move(this.mReturnPoint.x + randx2, this.mReturnPoint.y + randy2);
-			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+			await new Promise(resolve => setTimeout(resolve, Helper.randomIntFromInterval(this.MinPollenDepositTime, this.MaxPollenDepositTime)));
 			return true;
 		} else {
-			await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
+			await new Promise(resolve => setTimeout(resolve, Math.random() * this.RetryTime));
 			return false;
 		}
 

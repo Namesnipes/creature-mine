@@ -24,6 +24,15 @@ export abstract class Helper{
 	 * @param {number} max - The maximum value (inclusive).
 	 * @return {number} - The randomly generated integer.
 	 */
+
+	// helper.ts
+	
+	static RoundToNDecimalPlaces(value: number, n: number): number {
+		const multiplier = Math.pow(10, n);
+		return Math.round(value * multiplier) / multiplier;
+	}
+	
+
 	static randomIntFromInterval(min: number, max: number) { // min and max included 
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}

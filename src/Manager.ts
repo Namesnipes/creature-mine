@@ -113,10 +113,11 @@ export class Manager {
 		}
 
 		if(newScene.assetBundles){
-			this.changeScene(new LoadingScene());
+			const Loading_Screen = new LoadingScene();
+			this.changeScene(Loading_Screen);
 			console.log("Loading assets for bundles: ", newScene.assetBundles);
 			await this.initializeAssetsPromise;
-			await Assets.loadBundle(newScene.assetBundles);
+			await Assets.loadBundle(newScene.assetBundles, Loading_Screen.testcallback.bind(Loading_Screen));
 			newScene.OnAssetsLoaded();
 			console.log("Done loading bundles");
 		} else {
