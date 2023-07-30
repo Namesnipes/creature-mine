@@ -59,7 +59,7 @@ export class UIActor extends Actor {
 		//TODO: set mask to size of jar- need to load sprite assets to be able to get value first
 		//begin with low y, move up gradually
 		this.mHoneyMask = honeyMaskGraphics.drawRect(this.UIWidth/2 - Texture.from("honey").width/2,
-		 this.mHoneyEmptyLevel, Texture.from("honey").width, Texture.from("honey").height);
+			this.mHoneyEmptyLevel, Texture.from("honey").width, Texture.from("honey").height);
 		honeyMaskGraphics.endFill();
 		honeyContainer.addChild(this.mHoneyMask);
 		honeyContainer.mask = this.mHoneyMask;
@@ -82,12 +82,12 @@ export class UIActor extends Actor {
 
 		this.mScene.addChild(uiContainer);
 	}
-	override OnUpdate(): void {
+	public override OnUpdate(): void {
 		//update honey jar to match honey count
 		//get honey count and set mask pos accordingly
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
 		const currentJars: number = <number>Manager.dataHandler.GetData("jars");
-		let honeyLevel = currentHoney/this.mHoneyFullLevel;
+		const honeyLevel = currentHoney/this.mHoneyFullLevel;
 		this.mHoneyMask.y = (this.mHoneyFullLevel * (honeyLevel*-1))/1.18;
 		if(currentHoney >= this.MAXHONEY){
 			Manager.dataHandler.SetData("jars", (currentJars + 1) as number);

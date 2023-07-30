@@ -1,21 +1,15 @@
 import { Actor } from './Actor';
 import { Scene } from '../scenes/Scene1';
-import { Container, Point, Texture } from 'pixi.js';
+import { Point, Texture } from 'pixi.js';
 import { LerpComponent } from '../components/LerpComponent';
 import { Helper } from '../Helper';
 
 export class BeeActor extends Actor {
 	private mMover: LerpComponent = new LerpComponent(this);
-	private mMiddle: boolean = true;
 	private mReturnPoint: Point;
 
-	constructor(scene: Scene, parent?: Container) {
+	constructor(scene: Scene) {
 		super(scene);
-
-		// if there is a parent, add this actor to the children of the parent
-		if (typeof parent !== "undefined") {
-			parent?.addChild(this);
-		}
 		this.scale.set(0.1, 0.1);
 		this.SetTexture(Texture.from('bee'));
 	}
