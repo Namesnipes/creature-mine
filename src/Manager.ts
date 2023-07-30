@@ -3,6 +3,7 @@ import { manifest } from "./assets";
 import { UserInput } from "./UserInput";
 import { IScene } from './scenes/IScene';
 import { DataHandler } from "./DataHandler";
+import { LoadingScene } from "./scenes/LoadingScene";
 
 export class Manager {
 	private constructor() { /* static class no constructor */ }
@@ -111,19 +112,18 @@ export class Manager {
 			Manager.currentScene.destroy();
 		}
 
-		console.log("Loading assets for bundles: ", newScene.assetBundles);
-		await this.initializeAssetsPromise;
-		await Assets.loadBundle(newScene.assetBundles);
-		newScene.OnAssetsLoaded();
-		console.log("Done loading bundles");
+		if(newScene.assetBundles){
+			this.changeScene(new LoadingScene());
+			console.log("Loading assets for bundles: ", newScene.assetBundles);
+			await this.initializeAssetsPromise;
+			await Assets.loadBundle(newScene.assetBundles);
+			newScene.OnAssetsLoaded();
+			console.log("Done loading bundles");
+		} else {
+			console.log("loading screen");
+		}
 
 		Manager.currentScene = newScene;
-
-		// Set the background for all scenes
-		const bg: Sprite = Sprite.from("field_bg");
-		bg.width = this.width;
-		bg.height = this.height;
-		Manager.app.stage.addChild(bg);
 
 		// Add the new scene
 		Manager.app.stage.addChild(Manager.currentScene);

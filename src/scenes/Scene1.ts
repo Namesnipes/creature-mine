@@ -1,4 +1,4 @@
-import { Container, Ticker, Text, TextStyle} from 'pixi.js';
+import { Container, Ticker, Text, TextStyle, Sprite} from 'pixi.js';
 import { Manager } from "../Manager";
 import { IScene } from './IScene';
 import { Actor } from '../actors/Actor';
@@ -38,7 +38,7 @@ export class Scene extends Container implements IScene {
 		this.sortableChildren = true; // Lets zindex work
 		this.gameScreenWidth = Manager.width - this.UIWIDTH;
 		this.gameScreenHeight = Manager.height;
-		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);     
+		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);  
 	}
 
 	public OnAssetsLoaded(): void {
@@ -47,6 +47,12 @@ export class Scene extends Container implements IScene {
 		this.mUI = new UIActor(this, this.UIWIDTH);
 		this.addChild(this.mHive);
 		this.addChild(this.mFPSCount);
+
+		const bg: Sprite = Sprite.from("field_bg");
+		bg.zIndex = -1;
+		bg.width = Manager.width;
+		bg.height = Manager.height;
+		this.addChild(bg);   
 	}
 
 	/**
