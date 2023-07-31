@@ -10,6 +10,7 @@ import { BeeActor } from './BeeActor';
 import { hitbox_data } from '../hitbox_data';
 
 export class HiveActor extends Actor {
+	//TODO: redo docstrings
 	public mClicker: ClickComponent = new ClickComponent(this, this.onClick, <number>Manager.dataHandler.GetData("honey"));
 	private mEmitter: ParticleComponent = new ParticleComponent(this, particleSettings);
 	private floatingTextStyle: TextStyle = new TextStyle({
@@ -46,7 +47,7 @@ export class HiveActor extends Actor {
      * @returns {void} 
      */
 	public MakeBee() {
-		const bee: BeeActor = new BeeActor(this.mScene);
+		const bee: BeeActor = new BeeActor(this.mScene, this);
 		this.mScene.addChild(bee);
 		bee.zIndex = 100;
 		bee.scale.set(0.05, 0.05);
@@ -60,9 +61,9 @@ export class HiveActor extends Actor {
      * @param {BeeActor} b - The BeeActor to start working for.
      */
 	public async StartWorking(b: BeeActor) {
-		const collectedHoney: boolean = await b.CollectHoney();
-		if(collectedHoney){
-			this.AddHoney();
+		const collectedHoney: number = await b.CollectHoney();
+		if(collectedHoney > 0){
+			//this.AddHoney(collectedHoney);
 		}
 		this.StartWorking(b);
 	}
@@ -70,8 +71,12 @@ export class HiveActor extends Actor {
      * Adds 1 honey to the data store.
      *
      */
-	public AddHoney() {
+	public AddHoney(amount: number = 1) {
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
-		Manager.dataHandler.SetData("honey", (currentHoney + 1) as number);
+		Manager.dataHandler.SetData("honey", (currentHoney + amount) as number);
+	}
+
+	public override OnUpdate(){
+		
 	}
 }

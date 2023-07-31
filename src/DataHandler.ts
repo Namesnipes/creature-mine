@@ -33,7 +33,8 @@ export class DataHandler {
 		const index: number = this.getDataIndex(key);
 		const validator = this.VALIDATORS[index];
 		this.dataValues[index] = validator(data);
-		this.SaveData();
+		//TODO: PLEASE ADD A SAVING INTERVAL LIKE 30 SEC?? What is this shit
+		if(Math.random() < 0.1)this.SaveData();
 	}
   
 
@@ -58,7 +59,11 @@ export class DataHandler {
 	private SaveData(): void {
 		let tempSaveString: string = "";
 		for (let i = 0; i < this.dataValues.length; i++) {
-			tempSaveString += <string>this.dataValues[i] + "|";
+			let value = this.dataValues[i];
+			if (typeof value === 'number'){
+				value = Math.round(<number>value); // unfortunately you will lose your 0.001 nectar on save
+			}
+			tempSaveString += <string>value + "|";
 		}
 		console.log("Saving data:", tempSaveString);
 		const encodedData = this.StringToBase64(tempSaveString);

@@ -36,5 +36,9 @@ export abstract class Helper{
 	static randomIntFromInterval(min: number, max: number) { // min and max included 
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
+
+	static FormatNumberForDisplay(value: number): string {
+		return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
       
 }

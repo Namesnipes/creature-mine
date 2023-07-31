@@ -2,6 +2,7 @@ import { Actor } from './Actor';
 import { Scene } from '../scenes/Scene1';
 import { Graphics, Container, Sprite, Texture, Text, TextStyle } from 'pixi.js';
 import { Manager } from '../Manager';
+import { Helper } from '../Helper';
 export class UIActor extends Actor {
 	private UIWidth: number;
 	mHoneyEmptyLevel: number = Texture.from('honey').height + Texture.from('honey').height/2 + 10;
@@ -86,6 +87,7 @@ export class UIActor extends Actor {
 		//update honey jar to match honey count
 		//get honey count and set mask pos accordingly
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
+		const currentHoneyDisplay: string = Helper.FormatNumberForDisplay(currentHoney);
 		const currentJars: number = <number>Manager.dataHandler.GetData("jars");
 		const honeyLevel = currentHoney/this.mHoneyFullLevel;
 		this.mHoneyMask.y = (this.mHoneyFullLevel * (honeyLevel*-1))/1.18;
@@ -95,7 +97,7 @@ export class UIActor extends Actor {
 			this.mHoneyMask.y = this.mHoneyEmptyLevel;
 		}
 		//set text
-		this.mHoneyCount.text = 'Honey: ' + currentHoney;
+		this.mHoneyCount.text = 'Honey: ' + currentHoneyDisplay;
 		this.mJarsText.text = 'Jars: ' + currentJars;
 
 
