@@ -140,5 +140,6 @@ export class Manager {
 		if (Manager.currentScene) {
 			Manager.currentScene.update(framesPassed);
 		}
+		
 	}
 }

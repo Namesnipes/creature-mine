@@ -1,5 +1,6 @@
 export class DataHandler {
 
+	private static SAVE_DATA_INTERVAL = 30000;
 	private VALIDATORS: ((value: string | number) => string | number)[] 
 		= [this.NumberDataValidator,this.NumberDataValidator];
 	private static DATA_KEYS: string[] 
@@ -14,6 +15,10 @@ export class DataHandler {
 		} else {
 			console.log("User has no previous data!");
 		}
+
+		setInterval(() => {
+			this.SaveData();
+		}, DataHandler.SAVE_DATA_INTERVAL);
 	}
 
 	/**
@@ -33,8 +38,6 @@ export class DataHandler {
 		const index: number = this.getDataIndex(key);
 		const validator = this.VALIDATORS[index];
 		this.dataValues[index] = validator(data);
-		//TODO: PLEASE ADD A SAVING INTERVAL LIKE 30 SEC?? What is this shit
-		if(Math.random() < 0.1)this.SaveData();
 	}
   
 
@@ -57,6 +60,7 @@ export class DataHandler {
      * @return {void}
      */
 	private SaveData(): void {
+		console.log("saved data");
 		let tempSaveString: string = "";
 		for (let i = 0; i < this.dataValues.length; i++) {
 			let value = this.dataValues[i];
