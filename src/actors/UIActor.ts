@@ -3,6 +3,7 @@ import { Scene } from '../scenes/Scene1';
 import { Graphics, Container, Sprite, Texture, Text, TextStyle } from 'pixi.js';
 import { Manager } from '../Manager';
 import { Helper } from '../Helper';
+import {ScrollBox } from "@pixi/ui";
 export class UIActor extends Actor {
 	private UIWidth: number;
 	mHoneyEmptyLevel: number = Texture.from('honey').height + Texture.from('honey').height/2 + 10;
@@ -82,6 +83,33 @@ export class UIActor extends Actor {
 		uiContainer.addChild(this.mHoneyCount);
 
 		this.mScene.addChild(uiContainer);
+
+
+		//add scroll box
+
+		const mScrollBox = new ScrollBox({
+			type: "vertical",
+			items: [ // or use addItems() function
+				new Graphics().beginFill(0x00ff00).drawRect(0, 0, 200, 50),
+				new Graphics().beginFill(0x0aa000).drawRect(0, 0, 200, 200),
+				new Graphics().beginFill(0x0bb00).drawRect(0, 0, 200, 50),
+				new Graphics().beginFill(0x0cc000).drawRect(0, 0, 200, 200),
+				new Graphics().beginFill(0x00dd00).drawRect(0, 0, 200, 50),
+				new Graphics().beginFill(0x00ee00).drawRect(0, 0, 200, 200),
+			],
+			width: 320,
+			height: 420,
+			radius: 20,
+			background: 0x6495ed,
+			padding: 10,
+			elementsMargin: 10,
+		});
+
+		mScrollBox.x = 0;
+		mScrollBox.y = 550;
+		mScrollBox.zIndex = 100;
+
+		this.mScene.addChild(mScrollBox);
 	}
 	public override OnUpdate(): void {
 		//update honey jar to match honey count
