@@ -59,7 +59,7 @@ export class BeeActor extends Actor {
 			const randX2 = Helper.randomIntFromInterval(-100, 100);
 			const randY2 = Helper.randomIntFromInterval(-100, 100);
 
-			await this.mMover.Move(flower.x + 60 + randX, flower.y + 60 + randY); // move to flower
+			await this.mMover.Move(flower.x + 35 + randX, flower.y + 30 + randY); // move to flower
 
 			const nectarSuckTime = (this.MaxNectarInventory / this.NectarPerSecond) * 1000;
 			await new Promise(resolve => setTimeout(resolve, nectarSuckTime)); // suck nectar
@@ -71,7 +71,7 @@ export class BeeActor extends Actor {
 			this.DrainingNectar = true;
 
 			while (this.CurrentNectarInventory > 0) {
-				await new Promise(resolve => setTimeout(resolve, 1000));
+				await new Promise(resolve => setTimeout(resolve, 100));
 			}
 
 			return this.MaxNectarInventory;

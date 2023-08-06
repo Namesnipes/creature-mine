@@ -10,7 +10,6 @@ import { BeeActor } from './BeeActor';
 import { hitbox_data } from '../hitbox_data';
 
 export class HiveActor extends Actor {
-	//TODO: redo docstrings
 	public mClicker: ClickComponent = new ClickComponent(this, this.onClick, <number>Manager.dataHandler.GetData("honey"));
 	private mEmitter: ParticleComponent = new ParticleComponent(this, particleSettings);
 	private floatingTextStyle: TextStyle = new TextStyle({
@@ -42,7 +41,7 @@ export class HiveActor extends Actor {
 	}
 
 	/**
-     * Creates a new BeeActor and adds it to the scene.
+     * Creates a new BeeActor and adds it to the scene. Makes it start working
      *
      * @returns {void} 
      */
@@ -62,15 +61,15 @@ export class HiveActor extends Actor {
      */
 	public async StartWorking(b: BeeActor) {
 		const collectedHoney: number = await b.CollectHoney();
-		if(collectedHoney > 0){
-			//this.AddHoney(collectedHoney);
-		}
 		this.StartWorking(b);
 	}
+
+	
 	/**
-     * Adds 1 honey to the data store.
-     *
-     */
+	 * Adds honey to the current amount of honey.
+	 *
+	 * @param {number} amount - The amount of honey to add. Defaults to 1.
+	 */
 	public AddHoney(amount: number = 1) {
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
 		Manager.dataHandler.SetData("honey", (currentHoney + amount) as number);

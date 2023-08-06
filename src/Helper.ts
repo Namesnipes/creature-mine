@@ -40,5 +40,18 @@ export abstract class Helper{
 	static FormatNumberForDisplay(value: number): string {
 		return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+	/**
+	 * Retrieves a random element from the given array.
+	 *
+	 * @param {T[]} array - The array to retrieve the element from.
+	 * @returns {T} The random element.
+	 */
+	static getRandomArrayElement<T>(array: T[]): T {
+		const randomIndex = Math.floor(Math.random() * array.length);
+		const randomElement = array[randomIndex];
+		return randomElement;
+	}
+	
       
 }

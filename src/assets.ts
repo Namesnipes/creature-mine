@@ -14,6 +14,10 @@ export const manifest:ResolverManifest = {
             		"name":"sprites",
             		"srcs": "./cookieSprites.json"
             	},
+            {
+            		"name":"flowers",
+            		"srcs": "./flowerSprites.json"
+            	},
             	{
             		"name":"field_bg",
             		"srcs": "./field.jpg"
@@ -34,19 +38,19 @@ export const manifest:ResolverManifest = {
             		"name":"mound",
             		"srcs": "./mound.png"
             	},
-				{
+            {
             		"name":"jar",
             		"srcs": "./jar.png"
             	},
-				{
+            {
             		"name":"honey",
             		"srcs": "./honey.png"
             	},
-				{
+            {
             		"name":"wood",
             		"srcs": "./wood.jpg"
             	},
-				{
+            {
             		"name":"wood_shelf",
             		"srcs": "./woodenShelf.png"
             	},

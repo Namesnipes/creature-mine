@@ -1,0 +1,28 @@
+{
+    "frames": {
+        "flower1": 
+        {
+            "frame": { "x": 91, "y":42, "w":92, "h":136 },
+            "sourceSize": { "w": 92, "h": 136 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 92, "h": 136 }
+        },
+        "flower2": 
+        {
+            "frame": { "x": 204, "y":48, "w":103, "h":130 },
+            "sourceSize": { "w": 103, "h": 130 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 103, "h": 130 }
+        },
+        "flower3": 
+        {
+            "frame": { "x": 328, "y":37, "w":87, "h":141 },
+            "sourceSize": { "w": 87, "h": 141 },
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 87, "h": 141 }
+        }
+    },
+    "meta": {
+        "image": "flower_sprite_sheet.png",
+        "format": "RGBA8888",
+        "size": { "w": 612, "h": 381 },
+        "scale": "1"
+    }
+}
