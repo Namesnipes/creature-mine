@@ -6,7 +6,7 @@ export class DataHandler {
 	private static DATA_KEYS: string[] 
 		= ["honey","regular_jars","starberry_jars","blueberry_jars"];
 	private dataValues: (string | number)[]
-		= [0, 0,0,0,0];
+		= [0, 0,0,0];
 
 	constructor() {
 		const tempData = localStorage.getItem("IdleGameData");
@@ -55,6 +55,21 @@ export class DataHandler {
 	}
 
 	/**
+	 * Retrieves an array of all the jar keys from the DataHandler.DATA_KEYS. THIS IS TEMPORARY PLEASE DONT USE THIS LATER
+	 *
+	 * @return {string[]} An array of strings representing the data keys for jars
+	 */
+	public GetJarKeys(): string[]{
+		const keys: string[] = [];
+		for (let index = 0; index < DataHandler.DATA_KEYS.length; index++) {
+			if(DataHandler.DATA_KEYS[index].includes("jar")){
+				keys.push(DataHandler.DATA_KEYS[index]);
+			}
+		}
+		return keys;
+	}
+
+	/**
      * Saves all game data by storing it in the browsers local storage.
      *
      * @return {void}
@@ -94,7 +109,10 @@ export class DataHandler {
 					parsedData = validator(data[i]);
 					this.dataValues[i] = parsedData;
 				} else {
-					throw new Error("Data validator not found for key:" + DataHandler.DATA_KEYS[i]);
+					if(DataHandler.DATA_KEYS[i] == null){
+						throw new Error("Tried to access data at index " + i + " but no key exists for it");
+					}
+					throw new Error("Data validator not found for key:" + DataHandler.DATA_KEYS[i] + " at index " + i);
 				}
 			}
 		}
