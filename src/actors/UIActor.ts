@@ -158,8 +158,8 @@ export class UIActor extends Actor {
 		if(jarType == "regular_jars"){
 			//TODO: add number to inventory count
 			if(this.mJars[0] != null){
-				let t = this.mJars[0].getChildByName("numOfItems");
-		}
+				const t = this.mJars[0].getChildByName("numOfItems");
+			}
 		}
 	}
 	/**
@@ -171,7 +171,7 @@ export class UIActor extends Actor {
 
 		
 	}
-
+	//TODO: make inventory class as a centralized place for all things inventory 
 	/**
 	 * Creates a new inventory item with the specified sprite name and number of items.
 	 * Displayed in inventory scroll box.
@@ -190,7 +190,7 @@ export class UIActor extends Actor {
 		sprite.anchor.set(0.5);
 		item.addChild(sprite);
 		//num of item
-		let text = new Text(numOfItems,this.mTextStyle);
+		const text = new Text(numOfItems,this.mTextStyle);
 		text.name = 'numOfItems';
 		text.position.x = this.INVENTORY_ITEM_SIZE;
 		text.position.y = this.INVENTORY_ITEM_SIZE;
