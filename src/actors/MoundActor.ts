@@ -3,10 +3,7 @@ import { Scene } from '../scenes/Scene1';
 import { Manager } from '../Manager';
 import { FederatedEventHandler, FederatedMouseEvent, FederatedPointerEvent, Point, Polygon, Texture } from 'pixi.js';
 import { ClickComponent } from '../components/ClickComponent';
-import { FlowerActor } from './FlowerActor';
-import { Flower1Actor } from './FlowerTypes/Flower1Actor';
-import { Flower2Actor } from './FlowerTypes/Flower2Actor';
-import { Flower3Actor } from './FlowerTypes/Flower3Actor';
+import { FlowerActor, FlowerFactory } from './FlowerActor';
 import { Helper } from '../Helper';
 
 export class MoundActor extends Actor {
@@ -23,10 +20,10 @@ export class MoundActor extends Actor {
 
 	public onClick(e: FederatedMouseEvent): void {
 		console.log("clicked mound");
-		const flowers = [Flower1Actor, Flower2Actor, Flower3Actor];
+		const flowers: string[] = ["flower1","flower2","flower3"];
 		const pick = Helper.getRandomArrayElement(flowers);
 		if (!this.mFlower) {
-			this.mFlower = new pick(this.mScene);
+			this.mFlower = FlowerFactory.createFlower(this.mScene, pick);
 			this.mFlower.x = this.x + this.width / 2 - this.mFlower.width/2;
 			this.mFlower.y = this.y + this.height / 2 - this.mFlower.height;
 			this.mScene.addChild(this.mFlower);

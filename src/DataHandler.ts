@@ -13,7 +13,7 @@ export class DataHandler {
 		if (tempData != null && tempData.length > 1) {
 			this.LoadData(tempData);
 		} else {
-			console.log("User has no previous data!");
+			console.warn("User has no previous data!");
 		}
 
 		setInterval(() => {
@@ -32,7 +32,7 @@ export class DataHandler {
 	public SetData(key: string, data: string | number): void {
 
 		if (typeof data === 'string' && data.includes('|')) {
-			throw new Error('Data cannot contain the "|" character');
+			throw new Error('SET DATA ERROR:\nData cannot contain the "|" character');
 		}
 
 		const index: number = this.getDataIndex(key);
@@ -110,9 +110,9 @@ export class DataHandler {
 					this.dataValues[i] = parsedData;
 				} else {
 					if(DataHandler.DATA_KEYS[i] == null){
-						throw new Error("Tried to access data at index " + i + " but no key exists for it");
+						throw new Error("ERROR LOADING DATA:\n Tried to access data at index " + i + " but no key exists for it");
 					}
-					throw new Error("Data validator not found for key:" + DataHandler.DATA_KEYS[i] + " at index " + i);
+					throw new Error("ERROR LOADING DATA:\n Data validator not found for key:" + DataHandler.DATA_KEYS[i] + " at index " + i);
 				}
 			}
 		}
@@ -137,7 +137,7 @@ export class DataHandler {
 	private getDataIndex(key: string): number {
 		const dataIndex: number = DataHandler.DATA_KEYS.indexOf(key);
 		if (dataIndex === -1) {
-			throw new Error('Key does not exist: ' + key);
+			throw new Error('ERROR GETTING DATA:\n caller specified invalid key:' + key);
 		}
 		return dataIndex;
 	}
@@ -147,7 +147,7 @@ export class DataHandler {
 		if(!Number.isNaN(data)) {
 			return data;
 		} else {
-			throw new Error("Data is not a number: " + value);
+			throw new Error("DATA VALIDATION ERROR:\nData is not a number: " + value);
 		}
 	}
 }
