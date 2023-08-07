@@ -18,6 +18,10 @@ export const manifest:ResolverManifest = {
             		"name":"flowers",
             		"srcs": "./flowerSprites.json"
             	},
+            {
+            		"name":"jars",
+            		"srcs": "./jar_spritesheet.json"
+            	},
             	{
             		"name":"field_bg",
             		"srcs": "./field.jpg"
