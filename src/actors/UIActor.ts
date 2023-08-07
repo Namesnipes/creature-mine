@@ -8,7 +8,9 @@ export class UIActor extends Actor {
 	private UIWidth: number;
 	mHoneyEmptyLevel: number = Texture.from('honey').height + Texture.from('honey').height/2 + 10;
 	mHoneyFullLevel: number = Texture.from('honey').height - Texture.from('honey').height/2 + 8;
-	private readonly MAXHONEY = 300;
+	private readonly MAX_HONEY = 300;
+	private readonly INVENTORY_ITEM_SIZE = 100;
+	private readonly MAX_JAR_STACK = 10;
 	mHoneyMask: Graphics;
 	//text
 	mTextStyle = new TextStyle({
@@ -23,13 +25,23 @@ export class UIActor extends Actor {
 	//default is jar inventory
 	mInventoryTitle = new Text('Jars', this.mTextStyle);
 	//inventories
-	mJarInventory: ScrollBox;
-	mJars: Array<Sprite> = [];
-	mSeedInventory: ScrollBox;
+	mInventory: ScrollBox;
+	mJars: Array<Container> = [];
 
 	constructor(scene: Scene, width: number) {
 		super(scene);
 		this.UIWidth = width;
+		//TEST LIST OF JARS!!!
+		this.MakeNewInventoryItem("jar","regularJar","jar1.png");
+		this.MakeNewInventoryItem("jar","strawberryJar","jar2.png");
+		this.MakeNewInventoryItem("jar","blueberryJar","jar3.png");
+		this.MakeNewInventoryItem("jar","regularJar","jar1.png");
+		this.MakeNewInventoryItem("jar","strawberryJar","jar2.png");
+		this.MakeNewInventoryItem("jar","blueberryJar","jar3.png");
+		this.MakeNewInventoryItem("jar","regularJar","jar1.png");
+		this.MakeNewInventoryItem("jar","strawberryJar","jar2.png");
+		this.MakeNewInventoryItem("jar","blueberryJar","jar3.png");
+		
 		this.MakeUI();
 	}
 	/**
@@ -89,13 +101,7 @@ export class UIActor extends Actor {
 		uiContainer.addChild(inventoryBox);
 
 		//scroll box
-		this.mJarInventory = new ScrollBox({
-			type: "vertical",
-			items: [ // or use addItems() function
-				new Graphics().beginFill(0x00ff00).drawRect(0, 0, 100, 100),
-				new Graphics().beginFill(0x0aa000).drawRect(0, 0, 100, 100),
-				new Graphics().beginFill(0x0bb00).drawRect(0, 0, 100, 100),
-			],
+		this.mInventory = new ScrollBox({
 			width: inventoryBox.width/1.04,
 			height: inventoryBox.height/1.3,
 			background: 0xC07F00,
@@ -104,10 +110,11 @@ export class UIActor extends Actor {
 			radius: 25,
 		});
 		//TODO: fix way this is positioned
-		this.mJarInventory.x = this.UIWidth/8 + inventoryBox.width/24;
-		this.mJarInventory.y = Manager.height/1.8 + inventoryBox.height/5;
+		this.mInventory.x = this.UIWidth/8 + inventoryBox.width/24;
+		this.mInventory.y = Manager.height/1.8 + inventoryBox.height/5;
+		this.mInventory.addItems(this.mJars);
 
-		uiContainer.addChild(this.mJarInventory);
+		uiContainer.addChild(this.mInventory);
 
 		//text
 		this.mJarsText.anchor.set(0.5);
@@ -116,6 +123,9 @@ export class UIActor extends Actor {
 		this.mHoneyCount.anchor.set(0.5);
 		this.mHoneyCount.position.set(this.UIWidth/2, Manager.height/5);
 		uiContainer.addChild(this.mHoneyCount);
+		this.mInventoryTitle.anchor.set(0.5);
+		this.mInventoryTitle.position.set(this.UIWidth/2, Manager.height/1.7);
+		uiContainer.addChild(this.mInventoryTitle);
 		
 
 		//final ui constructed
@@ -129,8 +139,10 @@ export class UIActor extends Actor {
 		const currentJars: number = <number>Manager.dataHandler.GetData("regular_jars");
 		const honeyLevel = currentHoney/this.mHoneyFullLevel;
 		this.mHoneyMask.y = (this.mHoneyFullLevel * (honeyLevel*-1))/1.18;
-		if(currentHoney >= this.MAXHONEY){
+		if(currentHoney >= this.MAX_HONEY){
 			Manager.dataHandler.SetData("regular_jars", (currentJars + 1) as number);
+			//TODO: add correct kind of jar depending on what kind of honey was used
+			this.AddJar("regular_jars");
 			Manager.dataHandler.SetData("honey", (0) as number);
 			this.mHoneyMask.y = this.mHoneyEmptyLevel;
 		}
@@ -142,8 +154,13 @@ export class UIActor extends Actor {
 	/**
 	 * Adds a jar to jar inventory
 	 */
-	public AddJar(): void {
-		
+	public AddJar(jarType: string): void {
+		if(jarType == "regular_jars"){
+			//TODO: add number to inventory count
+			if(this.mJars[0] != null){
+				let t = this.mJars[0].getChildByName("numOfItems");
+		}
+		}
 	}
 	/**
      * Changes inventory that is open
@@ -153,6 +170,36 @@ export class UIActor extends Actor {
 		//display correct scrollbox items
 
 		
+	}
+
+	/**
+	 * Creates a new inventory item with the specified sprite name and number of items.
+	 * Displayed in inventory scroll box.
+	 *
+	 * @param {string} spriteName - The name of the sprite for the item.
+	 * @param {string} numOfItems - The number of items. Defaults to '0' if not provided.
+	 * @return {void} This function does not return a value.
+	 */
+	private MakeNewInventoryItem(typeOfItem: string, itemName: string, spriteName: string, numOfItems: string = '0'): void{
+		//inventory item box
+		const item = new Container().addChild(new Graphics().beginFill(0xffffff).drawRect(0, 0, this.INVENTORY_ITEM_SIZE, this.INVENTORY_ITEM_SIZE));
+		//item's image
+		const sprite = Sprite.from(spriteName);
+		sprite.position.x = this.INVENTORY_ITEM_SIZE/2;
+		sprite.position.y = this.INVENTORY_ITEM_SIZE/2;
+		sprite.anchor.set(0.5);
+		item.addChild(sprite);
+		//num of item
+		let text = new Text(numOfItems,this.mTextStyle);
+		text.name = 'numOfItems';
+		text.position.x = this.INVENTORY_ITEM_SIZE;
+		text.position.y = this.INVENTORY_ITEM_SIZE;
+		text.anchor.set(1, 0.8);
+		item.addChild(text);
+		//add item to right inventory item list
+		if(typeOfItem == "jar"){
+			this.mJars.push(item);
+		}
 	}
     
 
