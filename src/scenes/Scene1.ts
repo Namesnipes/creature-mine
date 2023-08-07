@@ -34,11 +34,11 @@ export class Scene extends Container implements IScene {
 		super(); // Mandatory! This calls the superclass constructor.
 		this.screenWidth = Manager.width;
 		this.screenHeight = Manager.height;
-		this.UIWIDTH = Manager.width/4;
+		this.UIWIDTH = Manager.width/2;
 		this.sortableChildren = true; // Lets zindex work
 		this.gameScreenWidth = Manager.width - this.UIWIDTH;
 		this.gameScreenHeight = Manager.height;
-		this.mFPSCount.position.set(this.gameScreenWidth + this.UIWIDTH/2, this.screenHeight-this.mFPSCount.height);  
+		this.mFPSCount.position.set(Manager.width - this.UIWIDTH/5, this.screenHeight-this.mFPSCount.height);     
 	}
 
 	public OnAssetsLoaded(): void {

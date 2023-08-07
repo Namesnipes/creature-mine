@@ -10,6 +10,7 @@ export class UIActor extends Actor {
 	mHoneyFullLevel: number = Texture.from('honey').height - Texture.from('honey').height/2 + 8;
 	private readonly MAXHONEY = 300;
 	mHoneyMask: Graphics;
+	//text
 	mTextStyle = new TextStyle({
 		fontFamily: "Comic Sans MS",
 		fontSize: 32,
@@ -19,6 +20,13 @@ export class UIActor extends Actor {
 	});
 	mJarsText = new Text('Jars:', this.mTextStyle);
 	mHoneyCount = new Text('Honey:', this.mTextStyle);
+	//default is jar inventory
+	mInventoryTitle = new Text('Jars', this.mTextStyle);
+	//inventories
+	mJarInventory: ScrollBox;
+	mJars: Array<Sprite> = [];
+	mSeedInventory: ScrollBox;
+
 	constructor(scene: Scene, width: number) {
 		super(scene);
 		this.UIWidth = width;
@@ -40,20 +48,19 @@ export class UIActor extends Actor {
 		uiContainer.mask = uiBase;
 		//wooden bg
 		const uiBg = Sprite.from("wood");
-		uiBg.scale.set(0.52, 1);
-		uiBg.anchor.set(0.5);
+		uiBg.scale.set(0.6, 1);
 		uiContainer.addChild(uiBg);
 		//honey jar base (glass)
 		const honeyJar = Sprite.from("jar");
 		honeyJar.anchor.set(0.5);
 		uiContainer.addChild(honeyJar);
-		honeyJar.position.set(this.UIWidth/2, Manager.height/4);
+		honeyJar.position.set(this.UIWidth/2, Manager.height/5);
 		//shelf
 		const woodShelf = Sprite.from("wood_shelf");
 		woodShelf.anchor.set(0.5);
 		woodShelf.scale.set(0.9, 1);
 		uiContainer.addChild(woodShelf);
-		woodShelf.position.set(this.UIWidth/2, Manager.height/4 + Texture.from("jar").height/2 + woodShelf.height/2);
+		woodShelf.position.set(this.UIWidth/2, Manager.height/5 + Texture.from("jar").height/2 + woodShelf.height/2);
 		//honey mask
 		const honeyContainer = new Container();
 		const honeyMaskGraphics = new Graphics();
@@ -69,47 +76,50 @@ export class UIActor extends Actor {
 		const honey = Sprite.from("honey");
 		honey.anchor.set(0.5);
 		//TODO: fix hardcoded honey height
-		honey.position.set(this.UIWidth/2, Manager.height/4 + 18);
+		honey.position.set(this.UIWidth/2, Manager.height/5 + 18);
 		honeyContainer.addChild(honey);
 
 		uiContainer.addChild(honeyContainer);
 
-		//text
-		this.mJarsText.anchor.set(0.5);
-		this.mJarsText.position.set(this.UIWidth/2, Manager.height/2);
-		uiContainer.addChild(this.mJarsText);
-		this.mHoneyCount.anchor.set(0.5);
-		this.mHoneyCount.position.set(this.UIWidth/2, Manager.height/4);
-		uiContainer.addChild(this.mHoneyCount);
+		//inventory
+		const inventoryGraphics = new Graphics();
+		inventoryGraphics.beginFill(0xFFF7D4);
+		let inventoryBox = inventoryGraphics.drawRoundedRect(this.UIWidth/7, Manager.height/1.8, this.UIWidth/1.4, 400, 30);
+		inventoryGraphics.endFill();
+		uiContainer.addChild(inventoryBox);
 
-		this.mScene.addChild(uiContainer);
-
-
-		//add scroll box
-
-		const mScrollBox = new ScrollBox({
+		//scroll box
+		this.mJarInventory = new ScrollBox({
 			type: "vertical",
 			items: [ // or use addItems() function
-				new Graphics().beginFill(0x00ff00).drawRect(0, 0, 200, 50),
-				new Graphics().beginFill(0x0aa000).drawRect(0, 0, 200, 200),
-				new Graphics().beginFill(0x0bb00).drawRect(0, 0, 200, 50),
-				new Graphics().beginFill(0x0cc000).drawRect(0, 0, 200, 200),
-				new Graphics().beginFill(0x00dd00).drawRect(0, 0, 200, 50),
-				new Graphics().beginFill(0x00ee00).drawRect(0, 0, 200, 200),
+				new Graphics().beginFill(0x00ff00).drawRect(0, 0, 100, 100),
+				new Graphics().beginFill(0x0aa000).drawRect(0, 0, 100, 100),
+				new Graphics().beginFill(0x0bb00).drawRect(0, 0, 100, 100),
 			],
-			width: 320,
-			height: 420,
-			radius: 20,
-			background: 0x6495ed,
-			padding: 10,
-			elementsMargin: 10,
+			width: inventoryBox.width/1.04,
+			height: inventoryBox.height/1.3,
+			background: 0xC07F00,
+			padding: 30,
+			elementsMargin: 20,
+			radius: 25,
 		});
+		//TODO: fix way this is positioned
+		this.mJarInventory.x = this.UIWidth/8 + inventoryBox.width/24;
+		this.mJarInventory.y = Manager.height/1.8 + inventoryBox.height/5;
 
-		mScrollBox.x = 0;
-		mScrollBox.y = 550;
-		mScrollBox.zIndex = 100;
+		uiContainer.addChild(this.mJarInventory);
 
-		this.mScene.addChild(mScrollBox);
+		//text
+		this.mJarsText.anchor.set(0.5);
+		this.mJarsText.position.set(this.UIWidth/2, Manager.height/2.3);
+		uiContainer.addChild(this.mJarsText);
+		this.mHoneyCount.anchor.set(0.5);
+		this.mHoneyCount.position.set(this.UIWidth/2, Manager.height/5);
+		uiContainer.addChild(this.mHoneyCount);
+		
+
+		//final ui constructed
+		this.mScene.addChild(uiContainer);
 	}
 	public override OnUpdate(): void {
 		//update honey jar to match honey count
@@ -127,7 +137,20 @@ export class UIActor extends Actor {
 		//set text
 		this.mHoneyCount.text = 'Honey: ' + currentHoneyDisplay;
 		this.mJarsText.text = 'Jars: ' + currentJars;
-
+		
+	}
+	/**
+	 * Adds a jar to jar inventory
+	 */
+	public AddJar(): void {
+		
+	}
+    /**
+     * Changes inventory that is open
+     */
+	private ChangeInventory(): void{
+		//change inventory title
+		//display correct scrollbox items
 
 		
 	}

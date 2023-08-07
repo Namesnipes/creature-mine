@@ -18,8 +18,6 @@ export class Actor extends Sprite {
 		this.mState = ActorState.Active;
 		this.mScene = scene;
 		this.mScene.AddActor(this);
-
-
 	}
 	public GetPosition(): ObservablePoint {
 		return this.position;
