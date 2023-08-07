@@ -84,7 +84,7 @@ export class UIActor extends Actor {
 		//inventory
 		const inventoryGraphics = new Graphics();
 		inventoryGraphics.beginFill(0xFFF7D4);
-		let inventoryBox = inventoryGraphics.drawRoundedRect(this.UIWidth/7, Manager.height/1.8, this.UIWidth/1.4, 400, 30);
+		const inventoryBox = inventoryGraphics.drawRoundedRect(this.UIWidth/7, Manager.height/1.8, this.UIWidth/1.4, 400, 30);
 		inventoryGraphics.endFill();
 		uiContainer.addChild(inventoryBox);
 
@@ -126,11 +126,11 @@ export class UIActor extends Actor {
 		//get honey count and set mask pos accordingly
 		const currentHoney: number = <number>Manager.dataHandler.GetData("honey");
 		const currentHoneyDisplay: string = Helper.FormatNumberForDisplay(currentHoney);
-		const currentJars: number = <number>Manager.dataHandler.GetData("jars");
+		const currentJars: number = <number>Manager.dataHandler.GetData("regular_jars");
 		const honeyLevel = currentHoney/this.mHoneyFullLevel;
 		this.mHoneyMask.y = (this.mHoneyFullLevel * (honeyLevel*-1))/1.18;
 		if(currentHoney >= this.MAXHONEY){
-			Manager.dataHandler.SetData("jars", (currentJars + 1) as number);
+			Manager.dataHandler.SetData("regular_jars", (currentJars + 1) as number);
 			Manager.dataHandler.SetData("honey", (0) as number);
 			this.mHoneyMask.y = this.mHoneyEmptyLevel;
 		}
@@ -145,7 +145,7 @@ export class UIActor extends Actor {
 	public AddJar(): void {
 		
 	}
-    /**
+	/**
      * Changes inventory that is open
      */
 	private ChangeInventory(): void{

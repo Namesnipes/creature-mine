@@ -1,12 +1,12 @@
 export class DataHandler {
-
+	//TODO: inventory saving feature (dont use a new key for each jar)
 	private static SAVE_DATA_INTERVAL = 30000;
 	private VALIDATORS: ((value: string | number) => string | number)[] 
-		= [this.NumberDataValidator,this.NumberDataValidator];
+		= [this.NumberDataValidator,this.NumberDataValidator,this.NumberDataValidator,this.NumberDataValidator];
 	private static DATA_KEYS: string[] 
-		= ["honey","jars"];
+		= ["honey","regular_jars","starberry_jars","blueberry_jars"];
 	private dataValues: (string | number)[]
-		= [0, 0];
+		= [0, 0,0,0,0];
 
 	constructor() {
 		const tempData = localStorage.getItem("IdleGameData");
@@ -98,7 +98,7 @@ export class DataHandler {
 				}
 			}
 		}
-		console.log("All data for this session: ",this.dataValues);
+		console.log("All data for this session: ",this.dataValues, DataHandler.DATA_KEYS);
 	}
 
 	private StringToBase64(str: string): string {

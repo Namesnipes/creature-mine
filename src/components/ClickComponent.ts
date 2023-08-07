@@ -22,7 +22,7 @@ export class ClickComponent extends Component {
 		} else {
 			this.mClickNum = 0;
 		}
-		owner.interactive = true;
+		owner.eventMode = 'static';
 		owner.cursor = "pointer";
 		owner.on("pointertap", this.onClick, this);
 	}
