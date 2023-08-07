@@ -7,7 +7,8 @@ enum ActorState {
     Paused,
     Destroy
 }
-export class Actor extends Sprite {
+//actor class is base for most rendered items in the game (that perform an action)
+export abstract class Actor extends Sprite {
 	mScene: Scene;
 	mState: ActorState;
 	//component array

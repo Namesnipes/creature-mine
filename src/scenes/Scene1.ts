@@ -94,6 +94,9 @@ export class Scene extends Container implements IScene {
 	public GetFlowers(): Array<FlowerActor>{
 		return this.mFlowerField;
 	}
+	public GetUI(): UIActor{
+		return this.mUI;
+	}
 
 	//process input on all actors
 	private ProcessInput(): void{
