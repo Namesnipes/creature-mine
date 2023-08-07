@@ -4,6 +4,8 @@ import { Graphics, Container, Sprite, Texture, Text, TextStyle } from 'pixi.js';
 import { Manager } from '../Manager';
 import { Helper } from '../Helper';
 import {ScrollBox } from "@pixi/ui";
+
+//TODO: fatal error: fix honey mask position
 export class UIActor extends Actor {
 	private UIWidth: number;
 	mHoneyEmptyLevel: number = Texture.from('honey').height + Texture.from('honey').height/2 + 10;
