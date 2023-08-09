@@ -7,27 +7,27 @@ export enum ItemType{
     Seed
 }
 export abstract class InventoryItem extends Actor{
-    //inventory data
-    mItemType: ItemType;
-    mNumItems: number = 1;
-    MAX_STACK: number = 5;
-    INVENTORY_ITEM_SIZE: number = 100;
-    mDisplay: Container;
-    mIsFull: boolean = false;
-    //for item stack number
-    mTextStyle = new TextStyle({
+	//inventory data
+	mItemType: ItemType;
+	mNumItems: number = 1;
+	MAX_STACK: number = 5;
+	INVENTORY_ITEM_SIZE: number = 100;
+	mDisplay: Container;
+	mIsFull: boolean = false;
+	//for item stack number
+	mTextStyle = new TextStyle({
 		fontFamily: "Comic Sans MS",
 		fontSize: 32,
 		miterLimit: 0,
 		stroke: "#ffd219",
 		strokeThickness: 3
 	});
-    mNumText = new Text(this.mNumItems, this.mTextStyle);
-    constructor(scene: Scene, itemType: ItemType) {
+	mNumText = new Text(this.mNumItems, this.mTextStyle);
+	constructor(scene: Scene, itemType: ItemType) {
 		super(scene);
-        this.mItemType = itemType;
+		this.mItemType = itemType;
 	}
-    /**
+	/**
 	 * Creates a new inventory item with the specified sprite name and number of items.
 	 * Displayed in inventory scroll box.
 	 *
@@ -49,17 +49,17 @@ export abstract class InventoryItem extends Actor{
 		this.mNumText.position.y = this.INVENTORY_ITEM_SIZE;
 		this.mNumText.anchor.set(1, 0.8);
 		item.addChild(this.mNumText);
-        this.mDisplay = item;
+		this.mDisplay = item;
 	}
-    public AddItem(): void{
-        this.mNumItems++;
-        //TODO: have inventory data stored...
-        this.mNumText.text = this.mNumItems;
-    }
-    public GetDisplay(): Container{
-        return this.mDisplay;
-    }
-    public IsFull(): boolean{
-        return this.mIsFull;
-    }
+	public AddItem(): void{
+		this.mNumItems++;
+		//TODO: have inventory data stored...
+		this.mNumText.text = this.mNumItems;
+	}
+	public GetDisplay(): Container{
+		return this.mDisplay;
+	}
+	public IsFull(): boolean{
+		return this.mIsFull;
+	}
 }
