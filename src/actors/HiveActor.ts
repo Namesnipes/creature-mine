@@ -30,7 +30,6 @@ export class HiveActor extends Actor {
 		// set position to top right of screen
 		this.x = Manager.width - this.width;
 		this.y = 0;
-		this.MakeBee();
 		this.hitArea = hitbox_data.hive;
 	}
 	public onClick(e: FederatedMouseEvent): void {

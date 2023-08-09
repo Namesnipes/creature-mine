@@ -1,12 +1,18 @@
 {
     "flower1": {
-      "texture_name": "flower1"
+      "texture_name": "flower1",
+      "bee_landing_coordinates": {"x":20,"y":30},
+      "bee_landing_radius": 30
     },
     "flower2": {
-        "texture_name": "flower2"
+        "texture_name": "flower2",
+        "bee_landing_coordinates": {"x":30,"y":30},
+        "bee_landing_radius": 30
     },
     "flower3": {
-        "texture_name": "flower3"
+        "texture_name": "flower3",
+        "bee_landing_coordinates": {"x":30,"y":30},
+        "bee_landing_radius": 30
     }
   }
   

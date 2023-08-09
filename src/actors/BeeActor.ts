@@ -54,12 +54,12 @@ export class BeeActor extends Actor {
 		const flower = flowers[Math.floor(Math.random() * flowers.length)];
 
 		if (flower) {
-			const randX = Helper.randomIntFromInterval(-25, 25);
-			const randY = Helper.randomIntFromInterval(-25, 25);
+			const randX = Helper.randomIntFromInterval(-flower.mBeeLandingRadius, flower.mBeeLandingRadius);
+			const randY = Helper.randomIntFromInterval(-flower.mBeeLandingRadius, flower.mBeeLandingRadius);
 			const randX2 = Helper.randomIntFromInterval(-100, 100);
 			const randY2 = Helper.randomIntFromInterval(-100, 100);
 
-			await this.mMover.Move(flower.x + 35 + randX, flower.y + 30 + randY); // move to flower
+			await this.mMover.Move(flower.x + flower.mBeeLandingCoordinateY + randX, flower.y + flower.mBeeLandingCoordinateX + randY); // move to flower
 
 			const nectarSuckTime = (this.MaxNectarInventory / this.NectarPerSecond) * 1000;
 			await new Promise(resolve => setTimeout(resolve, nectarSuckTime)); // suck nectar
